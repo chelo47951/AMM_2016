@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Registrazione esami</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+         <img src="IMG/unicaLogo.png" alt="Unica" width="128" height="128" >
+         
+         <h1>Registrazione esami Triennale e Magistrale</h1>
+             
+       
+       
+            <form  method="GET">
+               <div>
+                <label for="NomeStudente">Nome Studente</label>
+                <input type="text" name="NomeStudente" id="NomeStudente">
+               </div>
+                <div>
+                <label for="CognomeStudente">Cognome Studente</label>
+                <input type="text" name="CognomrStudente" id="CognomeStudente">
+               </div>
+                <div>
+                 <label for="MatricolaStudente">Matricola Studente</label>
+                <input type="number" name="MatricolaStudente" id="MatricolaStudente">
+              </div>
+               
+                <div>
+                <select>
+                    <option value="PR1">PROGRAMMAZIONE 1</option>
+                    <option value="PR2">PROGRAMMAZIONE 2</option>
+                    <option value="AMM">AMMINISTRAZIONE DI SISTEMA</option>
+                    <option value="EAI">ELABORAZIONE IMMAGINI</option>
+                    <option value="FS">FONDAMENTI SISTEMA</option>
+                    <option value="ARE2">ARCHITETTURA ELABORATORI 2</option>
+                    
+                </select>                    
+                </div>
+                
+                 <div>
+                     <label for="voto">Voto</label>
+                     <input type="range" min="18" max="31" id="voto" name="voto">  
+                 </div>
+                
+                
+                
+                <div>
+                    
+                       <label for="descrizione">Descrizione</label>
+                    
+                     <textarea id="descrizione" name="descrizione" cols="30" rows="5">
+                        Descrizione esame
+                     </textarea>
+                </div>
+              
+                
+                <div>
+                      <input type="submit" value="Invia">
+                      <input type="Reset" value="Cancella">
+                </div>
+                
+            </form>
+     
+    </body>
+</html>
