@@ -1,16 +1,61 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     <head>
-        <title>Fakeflix - Venditore</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Robofigures - Venditore</title>
+        
+        <meta charset="UTF-8">       
+        <meta name="keywords" content="Robofigures, robot, action figures, anime, serie tv, film, cartoni giapponesi">
+        <meta name="description" content="Robofigures - Pagina Venditore">
+        <meta name="author" content="Chelo Fabrizio">
     </head>
     <body>
-        <div>Fakeflix - Venditore</div>
+        <header>
+          <h1>Robofigures</h1>          
+        </header>
+        
+         <nav>
+             <div id="main-menu">
+                <ul> 
+                    <li><a href="descrizione.html">Descrizione</a></li>     
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        
+        <section>
+            <h2>Pagina Venditore</h2>
+            
+            <form method="get">
+                <label for="nomeArticolo">Nome Articolo</label>
+                <input type="text" id="nomeArticolo" name="nomeArticolo">
+                
+                <label for="imgurl">Url Immagine</label>
+                <input type="url" id="imgurl" name="imgurl">
+                
+                <label for="descArticolo">Descrizione</label>
+                <textarea id="descArticolo" name="descArticolo" rows="5" cols="20">Inserire una descrizione</textarea>
+
+                <label for="prezzo">Prezzo</label>
+                <input type="number" min="0" id="prezzo" name="prezzo">
+                
+                <label for="numpezzi">Numero di pezzi</label>
+                <input type="number" min="1" id="numpezzi" name="numpezzi">
+                
+                <input type="submit" value="Invia">
+
+            </form>
+            
+        </section>
+       
+       <footer>           
+           <p>
+               Contacts: <a href="mailto:chelo.fabrizio@tiscali.it"> chelo.fabrizio@tiscali.it</a>
+           </p>
+              <p>&copy;2016 AMM 2016 Project<p>
+           
+        </footer>   
+        
     </body>
 </html>
