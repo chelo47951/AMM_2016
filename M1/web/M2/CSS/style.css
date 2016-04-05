@@ -4,3 +4,124 @@
     Author     : Fabrizio Chelo
 */
 
+body {
+    position: relative;
+    background-color: white;
+    color: #666;
+    font: 300 14px/20px 'Open Sans', sans-serif;
+}
+
+
+header{
+    display: block;
+    background-color:  #ededed;
+    
+}
+
+h1 {
+    display: inline-block;
+}
+
+nav{
+    display: inline-block;
+  
+  
+}
+
+nav ul {
+    list-style: none;
+    padding: 10px;
+    
+}
+
+nav li
+{
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+    font-size: 1.4em;
+}
+
+nav li:hover
+{
+  background-color: gray;
+}
+nav a:link
+{
+    color: #333;
+    
+    text-decoration: none;   
+}
+
+nav a:visited
+{
+     color: #333;
+    
+}
+
+nav a:hover
+{
+    
+      color: black;
+}
+
+div#summary
+{
+    display: block;
+}
+
+div#summary ul {
+    list-style: none;
+    padding: 6px;
+    background-color: #111;
+    
+}
+
+div#summary li
+{
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+    font-size: 1.2em;
+}
+
+div#summary a:link
+{
+    color: #bbb;
+    
+    text-decoration: none;   
+}
+
+
+
+
+div#summary li a:hover
+{
+    color: white;   
+  
+}
+
+div#summary a:visited
+{
+     color: #bbb;
+    
+}
+
+
+section{    
+    display: block;
+}
+
+.site_description {
+    display: inline-table;
+    width: 28%;
+    height: 30%;
+    padding: 15px;
+}
+
+
+
+.inner{
+  
+}
+    
