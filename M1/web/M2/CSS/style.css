@@ -4,42 +4,81 @@
     Author     : Fabrizio Chelo
 */
 
+
+@media only screen and (min-width: 480px){
+
 body {
-    position: relative;
+    height: 100vh;
+    width: 100vw;
     background-color: white;
-    color: #666;
+    color: #555;
     font: 300 14px/20px 'Open Sans', sans-serif;
+    margin: 1px;  
 }
 
 
 header{
     display: block;
-    background-color:  #ededed;
-    
+    min-height: 25vh;
+    width: 100vw;
+    background-color:#cecece;
+    margin: 1px;    
+    border-bottom: 1px #222 dotted;
 }
 
 h1 {
     display: inline-block;
 }
 
+h2 {
+    display: block;
+    color: #333;
+}
+
+h2 a:hover
+{
+    color: #333; 
+}
+
+h3 {
+    display:block;
+    color: #444;
+}
+
+a:link
+{
+    color: #333;
+    font-size: 1.18em;
+    text-decoration: none;   
+}
+
+a:visited
+{
+    color: #333;    
+   
+}
+
+a:hover
+{
+    color: #020202;    
+}
+
 nav{
-    display: inline-block;
-  
-  
+    display: inline-block;      
 }
 
 nav ul {
     list-style: none;
     padding: 10px;
-    
+   
 }
 
 nav li
 {
     display: inline-block;
-    margin: 5px;
+    margin: 5px;  
     padding: 5px;
-    font-size: 1.4em;
+    font-size: 1.2em;
 }
 
 nav li:hover
@@ -68,20 +107,22 @@ nav a:hover
 div#summary
 {
     display: block;
+
 }
 
 div#summary ul {
     list-style: none;
     padding: 6px;
     background-color: #111;
+   margin-top: 0px;
     
 }
 
 div#summary li
 {
     display: inline-block;
-    margin: 5px;
-    padding: 5px;
+    margin: 6px;
+    padding: 8px;
     font-size: 1.2em;
 }
 
@@ -108,11 +149,20 @@ div#summary a:visited
 }
 
 
-section{    
+section{
     display: block;
+    min-height: 60vh;
+    width: 100vw;
+    display: block;
+    margin: 0;
+    margin-bottom: 5px;
+    clear: both;
 }
 
-.site_description {
+
+
+
+.site_topic {
     display: inline-table;
     width: 28%;
     height: 30%;
@@ -120,8 +170,427 @@ section{
 }
 
 
-
-.inner{
+footer{
+    
+    display: block;
+    width: 100vw;
+    height: 10vh;
+    background-color:  #cecece;
+    margin: 1px;
+    margin-bottom: 0;
+    padding: 10px;
+    border-top: 1px #222 dotted;
   
 }
+
+.footer-content{
+    display: block;
+}
+
+/*
+.footer-content::before{
+
+    clear:both;
+}
+
+*/
+
+#main-form {
+    width: 35%;
+    height: 100%;
+}
+
+.form-row {
+    display: block;
+    padding :10px;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.form-row label {
+   text-align: left;
+   width: 45%;
+}
+
+div label[for="descArticolo"] {
+ 
+ 
+  text-align: justify;
+}
+
+
+.form-row input{
+  
+  float: right;
+  width: 75%;
+  min-width: 70px;
+  
+}
+
+.form-row input[type="submit"]
+{
+    background-color: lightgray;
+    font-weight: bold;
+    min-width: 72px;
+    padding: 15px;
+    border: 1px #444 dotted;
+    margin-top: 5px;
+}
+
+.form-row textArea{
+  
+
+  width: 60%;
+  height: 130px;
+  min-width: 70px;
+  float: right;
+}
+
+
+/*
+table tr{    
+}
+*/
+
+table td{
+  text-align: center;
+   
+}
+
+table img{
+    width: 110px;
+    height: 100px;
+   
+}
+
+table img[alt="carrello"]{
+    width: 70px;
+    height: 70px;
+   
+}
+
+
+table th {
     
+    background-color: #222;
+    color : #cccccc;
+    padding: 15px;
+    
+}
+
+table tr:nth-child(odd) {
+    background-color: #cecece;
+}
+
+
+}
+
+/*
+-------------------------------------------------------------------------------
+*/
+
+/*
+Layout per device di piccole dimensioni
+
+*/
+
+@media only screen and (max-width: 480px){
+
+body {
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+    color: #555;
+    font: 300 13px/18px 'Open Sans', sans-serif;
+    margin: 1px;  
+}
+
+
+header{
+    display: block;
+    min-height: 25vh;
+    width: 100vw;
+    background-color:#cecece;
+    margin: 1px;    
+    border-bottom: 1px #222 dotted;
+}
+
+header img{
+    width: 85%;
+    height: 85%;
+}
+
+h1 {
+    display: inline-block;
+}
+
+h2 {
+    display: block;
+    color: #333;
+}
+
+h2 a:hover
+{
+    color: #333; 
+}
+
+h3 {
+    display:block;
+    color: #444;
+}
+
+a:link
+{
+    color: #333;
+    font-size: 1.18em;
+    text-decoration: none;   
+}
+
+a:visited
+{
+    color: #333;    
+   
+}
+
+a:hover
+{
+    color: #020202;    
+}
+
+nav{
+    display: inline-block;      
+}
+
+nav ul {
+    list-style: none;
+    padding: 5px;
+   
+}
+
+nav li
+{
+    display: inline-block;
+    margin: 3px;  
+    padding: 3px;
+    font-size: 1.1em;
+}
+
+nav li:hover
+{
+  background-color: gray;
+}
+nav a:link
+{
+    color: #333;
+    
+    text-decoration: none;   
+}
+
+nav a:visited
+{
+     color: #333;
+    
+}
+
+nav a:hover
+{
+    
+      color: black;
+}
+
+div#summary
+{
+    display: block;
+
+}
+
+div#summary ul {
+    list-style: none;
+    padding: 3px;
+    background-color: #111;
+   margin-top: 0px;
+    
+}
+
+div#summary li
+{
+    display: inline-block;
+    margin: 3px;
+    padding: 4px;
+    font-size: 1.1em;
+}
+
+div#summary a:link
+{
+    color: #bbb;
+    
+    text-decoration: none;   
+}
+
+
+
+
+div#summary li a:hover
+{
+    color: white;   
+  
+}
+
+div#summary a:visited
+{
+     color: #bbb;
+    
+}
+
+
+section{
+    display: block;
+    min-height: 60vh;
+    width: 100vw;
+    display: block;
+    margin: 0;
+    margin-bottom: 5px;
+    clear: both;
+}
+
+
+
+
+.site_topic {
+    display: inline-table;
+    width: 88%;
+    height: 40%;
+    padding: 5px;
+}
+
+
+footer{
+    
+    display: block;
+    width: 100vw;
+    height: 10vh;
+    background-color:  #cecece;
+    margin: 1px;
+    margin-bottom: 0;
+    padding: 5px;
+    border-top: 1px #222 dotted;
+  
+}
+
+.footer-content{
+    display: block;
+}
+
+
+#main-form {
+    width: 65%;
+    height: 100%;
+}
+
+.form-row {
+    display: block;
+    padding :5px;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.form-row label {
+   text-align: left;
+   width: 75%;
+}
+
+div label[for="descArticolo"] {
+ 
+ 
+  text-align: justify;
+}
+
+
+.form-row input{
+  
+  float: right;
+  width: 90%;
+  min-width: 70px;
+  
+}
+
+.form-row input[type="submit"]
+{
+    background-color: lightgray;
+    font-weight: bold;
+    min-width: 72px;
+    padding: 15px;
+    border: 1px #444 dotted;
+    margin-top: 5px;
+}
+
+.form-row textArea{
+  
+
+  width: 90%;
+  height: 130px;
+  min-width: 70px;
+  float: right;
+}
+
+
+/*
+table tr{    
+}
+*/
+
+table td{
+  text-align: center;
+   
+}
+
+
+
+table#articoli th#h-img,th#h-num,td:nth-child(2),td:nth-child(3) {
+    display: none;
+}
+
+table img[alt="carrello"]{
+    width: 40px;
+    height: 40px;
+   
+}
+
+
+table th {
+    
+    background-color: #222;
+    color : #cccccc;
+    padding: 5px;
+    font-size: 0.9em;
+    width: 55px;
+    
+}
+
+table tr:nth-child(odd) {
+    background-color: #cecece;
+}
+
+
+}
+
+
+
+
+
+
+
