@@ -7,11 +7,16 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.ObjectSale;
+
+import model.ObjectSaleFactory;
+import model.TestObjectSaleFactory;
 
 /**
  *
@@ -33,6 +38,14 @@ public class Cliente extends HttpServlet {
             throws ServletException, IOException
     {
         response.setContentType("text/html;charset=UTF-8");
+        
+        ObjectSaleFactory factory = TestObjectSaleFactory.getInstance();
+        
+        List<ObjectSale> items = factory.getSellingObjectList();
+        
+        request.setAttribute("sellingItems", items);
+        request.setAttribute("shopperImgUrl", Util.Constant.SHOP_CHART_ICON);
+        
         request.getRequestDispatcher("jsp/cliente.jsp").forward(request, response);
 
     }

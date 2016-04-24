@@ -22,7 +22,7 @@ public class Customer extends User
         items = new ArrayList<>();
     }
     
-    public boolean pay(float amount)
+    public boolean pay(double amount)
     {
         if(account.withdraw(amount))
             return true;

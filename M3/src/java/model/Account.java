@@ -14,13 +14,13 @@ public class Account
     
   
     
-    private float balance;
+    private double balance;
     private boolean active;
     private boolean overdraft;
     
     public Account()
     {
-        balance = 0f;
+        balance = 0.00;
         active = true;
         overdraft = false;
     }
@@ -31,13 +31,13 @@ public class Account
          balance+= initialAmount;        
     }
     
-    public boolean deposit(float amount)
+    public boolean deposit(double amount)
     {
         balance+= amount;
         return true;
     }
     
-     public boolean withdraw(float amount)
+     public boolean withdraw(double amount)
     {
         if(amount <= getBalance())
         {
@@ -51,7 +51,7 @@ public class Account
     /**
      * @return the balance
      */
-    public float getBalance() {
+    public double getBalance() {
         return balance;
     }
     

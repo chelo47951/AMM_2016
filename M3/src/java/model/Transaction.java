@@ -5,6 +5,7 @@
  */
 package model;
 
+import Util.Constant;
 import java.util.Random;
 
 /**
@@ -16,12 +17,12 @@ public class Transaction
     private int transactionId; 
     private Vendor vendor;
     private Customer customer;
-    private float amount;
+    private double amount;
     
     public Transaction(ObjectSale objectSale, Customer customer)
     {
         Random rn = new Random();
-        transactionId =  rn.nextInt();
+        transactionId =  rn.nextInt() % Constant.MAX_ID;
         
         this.vendor = objectSale.getVendor();
         this.customer = customer; 

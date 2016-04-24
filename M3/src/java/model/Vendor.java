@@ -18,7 +18,7 @@ public class Vendor extends User
         objectSale.setVendor(this);
     }
 
-    public boolean creditMoney(float amount)
+    public boolean creditMoney(double amount)
     {
         if(account.deposit(amount))
             return true;

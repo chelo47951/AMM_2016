@@ -50,55 +50,16 @@
                     <th id="h-shop">Aggiungi al Carrello</th>
                 </tr>
                 
+                
+                <c:forEach var="o" items="${sellingItems}">
                 <tr>
-                    <td>Star Trek: Captain Kirk</td>
-                    <td><img src="../img/kirk.jpg" alt="Captain Kirk"></td>
-                    <td>2</td>
-                    <td>299€</td>
-                    <td><a href="cliente.html"><img src="../img/icona-carrello.png" alt="carrello"></a></td>
+                    <td>${o.name}</td>
+                    <td><img src="${o.imgUrl}" alt="${o.description}"></td>
+                    <td>${o.numOfItems}</td>
+                    <td>${o.price}</td>
+                    <td><a href="cliente.html"><img src="${shopperImgUrl}" alt="carrello"></a></td>
                 </tr>
-                
-                <tr>
-                    <td>The Crow: Eric Draven</td>
-                    <td><img src="../img/theCrow.jpg" alt="Eric Draven"></td>
-                    <td>4</td>
-                    <td>235€</td>
-                    <td><a href="cliente.html"><img src="../img/icona-carrello.png" alt="carrello"></a></td>
-                </tr>
-                
-                 <tr>
-                    <td>Devilman anime version</td>
-                    <td><img src="../img/devilman.jpg" alt="Devilman anime version" ></td>
-                    <td>2</td>
-                    <td>85€</td>
-                    <td><a href="cliente.html"><img src="../img/icona-carrello.png" alt="carrello" ></a></td>
-                </tr>
-                
-                <tr>
-                    <td>Jeeg</td>
-                    <td><img src="../img/jeeg.jpg" alt="Jeeg"></td>
-                    <td>5</td>
-                    <td>155€</td>
-                    <td><a href="cliente.html"><img src="../img/icona-carrello.png" alt="carrello" ></a></td>
-                </tr>
-                
-                 <tr>
-                    <td>Goldrake</td>
-                    <td><img src="../img/goldrake.jpg" alt="Goldrake" ></td>
-                    <td>8</td>
-                    <td>145€</td>
-                    <td><a href="cliente.html"><img src="../img/icona-carrello.png" alt="carrello"></a></td>
-                </tr>
-                
-                 <tr>
-                    <td>Nausicaa della valle del vento - dvd</td>
-                    <td><img src="../img/Nausicaa-dvd.png" alt="Nausicaa"></td>
-                    <td>11</td>
-                    <td>35€</td>
-                    <td><a href="cliente.html"><img src="../img/icona-carrello.png" alt="carrello"></a></td>
-                </tr>
-                
-                
+                </c:forEach>
               
              
         </table>

@@ -5,18 +5,49 @@
  */
 package model;
 
+import Util.Constant;
+import java.util.Random;
+
 /**
  *
  * @author fab
  */
 public class ObjectSale
 {
+    private int ObjectSaleId;
     private String name;
     private String description;
-    private float price;
+    private String category;
+    private double price;
+    private int numOfItems;
     private String imgUrl;
     
     private Vendor vendor;
+    
+    
+    public ObjectSale()
+    {}
+    
+     public ObjectSale(
+              String name,
+              String description,
+              String category,
+              double price,
+              int numOfItems,
+              String imgUrl                            
+                        )
+    {        
+              Random rn = new Random();                       
+              this.ObjectSaleId =  rn.nextInt() % Constant.MAX_ID; 
+              
+              this.name = name;
+              this.description =  description;
+              this.category = category;
+              this.price = price;
+              this.numOfItems = numOfItems;
+              this.imgUrl  = imgUrl;    
+    
+    }
 
     /**
      * @return the name
@@ -49,14 +80,14 @@ public class ObjectSale
     /**
      * @return the price
      */
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
     /**
      * @param price the price to set
      */
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -86,6 +117,34 @@ public class ObjectSale
      */
     public void setVendor(Vendor vendor) {
         this.vendor = vendor;
+    }
+
+    /**
+     * @return the numOfItems
+     */
+    public int getNumOfItems() {
+        return numOfItems;
+    }
+
+    /**
+     * @param numOfItems the numOfItems to set
+     */
+    public void setNumOfItems(int numOfItems) {
+        this.numOfItems = numOfItems;
+    }
+
+    /**
+     * @return the category
+     */
+    public String getCategory() {
+        return category;
+    }
+
+    /**
+     * @param category the category to set
+     */
+    public void setCategory(String category) {
+        this.category = category;
     }
     
 }
