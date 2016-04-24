@@ -19,34 +19,13 @@ public class TestObjectSaleFactory extends ObjectSaleFactory
     private static TestObjectSaleFactory instance;
     
     private TestObjectSaleFactory()
-    {}
-    
-    public static TestObjectSaleFactory getInstance()
     {
-       if(instance == null)
-       {
-           instance = new TestObjectSaleFactory();
-       }
+    
+        
+       items = new ArrayList<>();
        
-        return instance;
-    }
-    
-    
-    
-
-    @Override
-    public ObjectSale getObjectSaleById(int id) 
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<ObjectSale> getSellingObjectList()
-    {
-        
-        // Test: hardcoded items
-        
-        List<ObjectSale> items = new ArrayList<>();
+       
+         // Test: hardcoded items
          
         ObjectSale kirk = new ObjectSale(
                 "Captain Kirk",
@@ -123,6 +102,30 @@ public class TestObjectSaleFactory extends ObjectSaleFactory
         items.add(nausicaa);
         
         
+    }
+    
+    public static TestObjectSaleFactory getInstance()
+    {
+       if(instance == null)
+       {
+           instance = new TestObjectSaleFactory();
+       }
+       
+        return instance;
+    }
+    
+    
+    
+
+    @Override
+    public ObjectSale getObjectSaleById(int id) 
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<ObjectSale> getSellingObjectList()
+    {        
         
         return items;
     }

@@ -13,6 +13,7 @@ import java.util.List;
  */
 public abstract class ObjectSaleFactory
 {
+    protected  List<ObjectSale> items;
     public abstract ObjectSale getObjectSaleById(int id);
     public abstract List<ObjectSale> getSellingObjectList();
     public abstract List<ObjectSale> getSellingObjectListByCategory(String category);

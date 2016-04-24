@@ -30,7 +30,7 @@ public class Transaction
     
     }
     
-     public boolean purchase()
+     private boolean buy()
     {
         if(customer.pay(amount) &&  vendor.creditMoney(amount) )
           return true;
@@ -40,7 +40,7 @@ public class Transaction
     
      private boolean commit()
     { 
-        if(purchase())
+        if(buy())
         {
             persistChanges();
             return true;
@@ -51,6 +51,7 @@ public class Transaction
     
     private boolean rollBack()
     {
+        // TODO:  Ripristina lo stato prima dell'acquisto
         return false;
     }
 

@@ -52,13 +52,15 @@
                 
                 
                 <c:forEach var="o" items="${sellingItems}">
-                <tr>
-                    <td>${o.name}</td>
-                    <td><img src="${o.imgUrl}" alt="${o.description}"></td>
-                    <td>${o.numOfItems}</td>
-                    <td>${o.price}</td>
-                    <td><a href="cliente.html"><img src="${shopperImgUrl}" alt="carrello"></a></td>
-                </tr>
+                  <c:if test="${o.numOfItems > 0}">
+                        <tr>
+                            <td>${o.name}</td>
+                            <td><img src="${o.imgUrl}" alt="${o.description}"></td>
+                            <td>${o.numOfItems}</td>
+                            <td>${o.price}</td>
+                            <td><a href="cliente.html"><img src="${shopperImgUrl}" alt="carrello"></a></td>
+                        </tr>
+                  </c:if>
                 </c:forEach>
               
              

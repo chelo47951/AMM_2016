@@ -5,6 +5,7 @@
  */
 package controller;
 
+import static Util.Constant.CUSTOMER_PAGE;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.ObjectSale;
 
 import model.ObjectSaleFactory;
+import model.ShoppingCart;
 import model.TestObjectSaleFactory;
 
 /**
@@ -44,9 +46,9 @@ public class Cliente extends HttpServlet {
         List<ObjectSale> items = factory.getSellingObjectList();
         
         request.setAttribute("sellingItems", items);
-        request.setAttribute("shopperImgUrl", Util.Constant.SHOP_CHART_ICON);
+        request.setAttribute("shopperImgUrl", ShoppingCart.SHOP_CART_ICON);
         
-        request.getRequestDispatcher("jsp/cliente.jsp").forward(request, response);
+        request.getRequestDispatcher(CUSTOMER_PAGE).forward(request, response);
 
     }
 

@@ -18,7 +18,11 @@ public class User
     private String password;
     
     
+    //TODO: evolvere in una classe
     private String address;
+    
+    
+    private Account account;
 
     /**
      * @return the userId
@@ -102,6 +106,20 @@ public class User
      */
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    /**
+     * @return the account
+     */
+    public Account getAccount() {
+        return account;
+    }
+
+    /**
+     * @param account the account to set
+     */
+    public void setAccount(Account account) {
+        this.account = account;
     }
     
     

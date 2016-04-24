@@ -23,7 +23,19 @@ public class Constant
     
     
     //Icone
-     public final static String SHOP_CHART_ICON = "img/icona-carrello.png";
+    
+     
+     
+     // JSP path
+      public final static String BASE_PATH = "jsp/";
+      
+      public final static String LOGIN_PAGE = BASE_PATH  +   "login.jsp";
+      public final static String DESCRIPTION_PAGE= BASE_PATH   +   "descrizione.jsp";
+      public final static String CUSTOMER_PAGE = BASE_PATH   +   "cliente.jsp";
+      public final static String VENDOR_PAGE = BASE_PATH   +   "venditore.jsp";
+      public final static String BUY_PAGE = BASE_PATH   +   "acquista.jsp";
+      public final static String BUY_COMMIT = BASE_PATH   +   "conferma_acquisto.jsp";
+      
     
     
 }

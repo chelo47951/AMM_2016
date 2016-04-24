@@ -12,22 +12,25 @@ package model;
 public class Account
 {
     
-  
+    
+    User owner;
     
     private double balance;
     private boolean active;
     private boolean overdraft;
     
-    public Account()
+    public Account(User owner)
     {
+        this.owner = owner;
+        
         balance = 0.00;
         active = true;
         overdraft = false;
     }
     
-    public Account(float initialAmount)
+    public Account(User owner, double initialAmount)
     {
-         this();
+         this(owner);
          balance+= initialAmount;        
     }
     

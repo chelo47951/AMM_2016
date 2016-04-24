@@ -14,17 +14,32 @@ import java.util.List;
  */
 public class Customer extends User
 {
-    private Account account;
-    private List<ObjectSale> items;
+   
+    private ShoppingCart cart;
     
     public  Customer()
     {
-        items = new ArrayList<>();
+        cart = new ShoppingCart();
     }
+    
+    public boolean buy(ObjectSale item)
+    {
+        int num = item.getNumOfItems();
+        if(num > 0 &&  pay(item.getPrice()))
+        {            
+            item.setNumOfItems(--num);
+            cart.removeFromCart(item);
+            return true;
+        }
+        else
+            return false;
+        
+    }
+    
     
     public boolean pay(double amount)
     {
-        if(account.withdraw(amount))
+        if(getAccount().withdraw(amount))
             return true;
         else
             return false;
@@ -32,14 +47,14 @@ public class Customer extends User
     
 
 
-    private void addToPurchasedItems(ObjectSale objectSale)
+    private void addToCart(ObjectSale objectSale)
     {
-       items.add(objectSale);
+       cart.addToCart(objectSale);
     }
     
      private void removeFromPurchasedItems(ObjectSale objectSale)
     {
-       items.remove(objectSale);
+       cart.removeFromCart(objectSale);
     }
     
     

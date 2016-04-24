@@ -11,7 +11,7 @@ package model;
  */
 public class Vendor extends User
 {
-    private Account account;
+  
     
     public void sellObject(ObjectSale objectSale)
     {
@@ -20,7 +20,7 @@ public class Vendor extends User
 
     public boolean creditMoney(double amount)
     {
-        if(account.deposit(amount))
+        if(getAccount().deposit(amount))
             return true;
         else
             return false;
