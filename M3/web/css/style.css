@@ -290,6 +290,16 @@ table tr:nth-child(odd) {
 }
 
 
+div#errorMessage {
+    border: red 1px solid;
+    padding: 10px;
+    color: red;
+    font-weight: bold;
+    width: 90%;
+    text-align: center;
+    
+}
+
 }
 
 /*
@@ -583,6 +593,15 @@ table th {
 
 table tr:nth-child(odd) {
     background-color: #cecece;
+}
+
+div#errorMessage {
+    border: red 1px solid;
+    padding: 3px;
+    color: red;
+    font-weight: bold;
+    width: 80%;
+    text-align: center; 
 }
 
 

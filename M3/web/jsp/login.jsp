@@ -44,6 +44,13 @@
         
         <section>
             <h2>Pagina Login</h2>
+            
+         <c:if test="${errorMessage != null}">
+             <div id="errorMessage">
+                 <p>${errorMessage}<p>
+             </div>
+        </c:if>   
+            
          <div id="main-form">
             <form method="get">
                 <div class="form-row">
@@ -55,7 +62,7 @@
                 <input type="password" id="pwd" name="pwd">
                 </div>
                 <div class="form-row">
-                <input type="submit" value="Accedi">
+                <input type="submit" name="Submit" value="Accedi">
                 </div>
 
             </form>

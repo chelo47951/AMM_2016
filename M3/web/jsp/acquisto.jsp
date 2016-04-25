@@ -1,16 +1,15 @@
 <%-- 
-    Document   : cliente
-    Created on : 23-apr-2016, 21.15.29
+    Document   : acquisto
+    Created on : 25-apr-2016, 14.00.21
     Author     : fab
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
 <html>
     <head>
-        <title>Robofigures - Cliente</title>
+        <title>Robofigures - Riepilogo acquisto</title>
         
         <meta charset="UTF-8">       
         <meta name="keywords" content="Robofigures, robot, action figures, anime, serie tv, film, cartoni giapponesi">
@@ -39,7 +38,7 @@
      
         
         <section>
-            <h2>Pagina Cliente</h2>
+            <h2>Pagina Riepilogo acquisto</h2>
             
      <c:choose>            
                 <c:when test="${IsCustomer == null || IsCustomer==false}">
@@ -49,30 +48,20 @@
                </c:when>
 
          <c:otherwise>      
-           <table id="articoli">
-                <tr>
-                    <th id="h-art">Articolo</th>
-                    <th id="h-img">Foto</th>                
-                    <th id="h-num">Pezzi disponibili</th>
-                    <th id="h-price">Prezzo</th>
-                    <th id="h-shop">Aggiungi al Carrello</th>
-                </tr>
+ 
                 
-                
-                <c:forEach var="o" items="${sellingItems}">
-                  <c:if test="${o.numOfItems > 0}">
-                        <tr>
-                            <td>${o.name}</td>
-                            <td><img src="${o.imgUrl}" alt="${o.description}"></td>
-                            <td>${o.numOfItems}</td>
-                            <td>${o.price}</td>
-                            <td><a href="cliente.html"><img src="${shopperImgUrl}" alt="carrello"></a></td>
-                        </tr>
-                  </c:if>
-                </c:forEach>
+              
+                            <div>${o.name}</div>
+                            <div><img src="${o.imgUrl}" alt="${o.description}"></div>                             
+                            <div>${o.price}</div>
+                            <div>${o.numOfItems}</div>>
+                            <div><a href="cliente.html"><img src="${shopperImgUrl}" alt="carrello"></a> </div>
+                        
+             
+         
               
              
-         </table>
+         </table
            
        </c:otherwise>
      </c:choose>

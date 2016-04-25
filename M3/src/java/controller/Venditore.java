@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static Util.Constant.*;
+
 /**
  *
  * @author fab
@@ -32,9 +34,9 @@ public class Venditore extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        response.setContentType("text/html;charset=UTF-8");
+      
         
-        request.getRequestDispatcher("jsp/venditore.jsp").forward(request, response);
+        request.getRequestDispatcher(VENDOR_PAGE).forward(request, response);
        
     }
 

@@ -22,6 +22,7 @@ public class User
     private String address;
     
     
+    // Ogni utente dell'applicazione ha un conto
     private Account account;
 
     /**

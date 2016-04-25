@@ -13,7 +13,7 @@ public class Account
 {
     
     
-    User owner;
+    private User owner;
     
     private double balance;
     private boolean active;

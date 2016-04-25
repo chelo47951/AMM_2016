@@ -5,6 +5,8 @@
  */
 package controller;
 
+
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +14,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.TestUserFactory;
+import model.User;
+import model.UserFactory;
+
+import static Util.Constant.*;
+import java.util.List;
+import javax.servlet.http.HttpSession;
+import model.Customer;
+import model.ObjectSale;
+import model.ObjectSaleFactory;
+import model.ShoppingCart;
+import model.TestObjectSaleFactory;
+import model.Vendor;
 
 /**
  *
@@ -32,9 +47,61 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        response.setContentType("text/html;charset=UTF-8");
+      
+        HttpSession session = request.getSession(true);
         
-        request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+        UserFactory userfactory = TestUserFactory.getInstance();
+        
+        if( request.getParameter("Submit") != null )
+        {
+            
+                String username = request.getParameter("username");
+                String pwd =      request.getParameter("pwd");
+
+                if( username!= null && pwd != null )
+                {            
+                    User user = userfactory.getUserByUsername(username);
+
+                    if(userfactory.verifyPassword(username, pwd))
+                    {
+                        //Login avvenuto con successo
+                        session.setAttribute("LoggedIn", true);
+                        session.setAttribute("Username", user.getUsername());
+                        
+                        
+                        if( user instanceof Customer )
+                        {
+                            request.setAttribute("Customer", user);
+                            session.setAttribute("IsCustomer", true);
+                            session.removeAttribute("IsVendor");
+                            
+                            ObjectSaleFactory factory = TestObjectSaleFactory.getInstance();        
+                            List<ObjectSale> items = factory.getSellingObjectList(); 
+                            
+                            request.setAttribute("sellingItems", items);
+                            request.setAttribute("shopperImgUrl", ShoppingCart.SHOP_CART_ICON);
+                            
+                            
+                            request.getRequestDispatcher(CUSTOMER_PAGE).forward(request, response);
+                        }
+                        else if ( user instanceof Vendor )
+                        {
+                            session.setAttribute("IsVendor", true);
+                            session.removeAttribute("IsCustomer");
+                            request.setAttribute("Vendor", user);
+                            request.getRequestDispatcher(VENDOR_PAGE).forward(request, response);
+                        }
+                    }
+
+                }
+                
+                String errorMessage = "Non è stato possibile autenticare l'utente. Verificare username e password";
+                request.setAttribute("errorMessage", errorMessage);
+                
+        }
+        
+        
+        request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
       
     }
 

@@ -14,9 +14,19 @@ import java.util.List;
 public abstract class UserFactory 
 {
     protected  List<User> users;
-    public abstract User getUserById(int id);
-    public abstract User getUserByUsername(String username);
+    protected  List<Customer> customers;
+    protected  List<Vendor> vendors;
+
+   
     public abstract List<User> getUsers();
+    public abstract List<Customer> getCustomers();
+    public abstract List<Vendor> getVendors();
+    
+    // Ricerca un utente per username
+    public abstract User getUserByUsername(String username); 
+    
+    public abstract boolean verifyPassword(String username,  String password);
+    
    
     
 }

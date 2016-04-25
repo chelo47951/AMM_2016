@@ -42,44 +42,57 @@
         
         <section>
             <h2>Pagina Venditore</h2>
-          <div id="main-form">
-            <form method="get">
-                
-             <div class="form-row clearfix">
-                <label for="nomeArticolo">Nome Articolo:</label>
-                <input type="text" id="nomeArticolo" name="nomeArticolo">
-             </div>
-            <div class="form-row clearfix">  
-                <label for="imgurl">Url Immagine:</label>
-                <input type="url" id="imgurl" name="imgurl">
-                
-             </div>
-                
-           <div class="form-row clearfix">
-                <label for="descArticolo">Descrizione:</label>
-                <textarea id="descArticolo" name="descArticolo" rows="5" cols="20">Inserire una descrizione</textarea>
-                
-           </div>
-           <div class="form-row clearfix">
-                <label for="prezzo">Prezzo:</label>
-                <input type="number" min="0" id="prezzo" name="prezzo">
-                
-           </div>
-                
-           <div class="form-row clearfix">  
-                <label for="numpezzi">Numero di pezzi:</label>
-                <input type="number" min="1" id="numpezzi" name="numpezzi">
-                
-          </div>
-                
-           <div class="form-row clearfix">
-                <input type="submit" value="Invia">
-                
-          </div>
+          <c:choose>            
+                <c:when test="${IsVendor == null || IsVendor==false}">
+                    <div id="errorMessage">
+                        <p>Utente non autenticato o non autorizzato all'accesso dei contenuti della pagina<p>
+                  </div>
+               </c:when>
 
-            </form>
-                 
-           </div>
+               <c:otherwise>                   
+               
+                 <div id="main-form">
+                   <form method="get">
+
+                    <div class="form-row clearfix">
+                       <label for="nomeArticolo">Nome Articolo:</label>
+                       <input type="text" id="nomeArticolo" name="nomeArticolo">
+                    </div>
+                   <div class="form-row clearfix">  
+                       <label for="imgurl">Url Immagine:</label>
+                       <input type="url" id="imgurl" name="imgurl">
+
+                    </div>
+
+                  <div class="form-row clearfix">
+                       <label for="descArticolo">Descrizione:</label>
+                       <textarea id="descArticolo" name="descArticolo" rows="5" cols="20">Inserire una descrizione</textarea>
+
+                  </div>
+                  <div class="form-row clearfix">
+                       <label for="prezzo">Prezzo:</label>
+                       <input type="number" min="0" id="prezzo" name="prezzo">
+
+                  </div>
+
+                  <div class="form-row clearfix">  
+                       <label for="numpezzi">Numero di pezzi:</label>
+                       <input type="number" min="1" id="numpezzi" name="numpezzi">
+
+                 </div>
+
+                  <div class="form-row clearfix">
+                       <input type="submit" value="Invia">
+
+                 </div>
+
+                   </form>
+
+                  </div>
+                
+                 </c:otherwise>
+                
+              </c:choose> 
             
         </section>
        

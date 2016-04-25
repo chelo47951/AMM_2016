@@ -5,7 +5,7 @@
  */
 package controller;
 
-import static Util.Constant.CUSTOMER_PAGE;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -19,6 +19,10 @@ import model.ObjectSale;
 import model.ObjectSaleFactory;
 import model.ShoppingCart;
 import model.TestObjectSaleFactory;
+
+import static Util.Constant.CUSTOMER_PAGE;
+import static Util.Constant.LOGIN_PAGE;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,16 +43,28 @@ public class Cliente extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        response.setContentType("text/html;charset=UTF-8");
+      
+       HttpSession session = request.getSession(false);
+       
+       if(session == null)
+       {
+            request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
+       }
+       
+       else{
+                            
+       ObjectSaleFactory factory = TestObjectSaleFactory.getInstance();        
+       List<ObjectSale> items = factory.getSellingObjectList(); 
+                            
+       request.setAttribute("sellingItems", items);
+       request.setAttribute("shopperImgUrl", ShoppingCart.SHOP_CART_ICON);
         
-        ObjectSaleFactory factory = TestObjectSaleFactory.getInstance();
+       request.getRequestDispatcher(CUSTOMER_PAGE).forward(request, response);
+       }
         
-        List<ObjectSale> items = factory.getSellingObjectList();
+      
         
-        request.setAttribute("sellingItems", items);
-        request.setAttribute("shopperImgUrl", ShoppingCart.SHOP_CART_ICON);
         
-        request.getRequestDispatcher(CUSTOMER_PAGE).forward(request, response);
 
     }
 
