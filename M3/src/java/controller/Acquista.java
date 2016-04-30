@@ -16,17 +16,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.ObjectSale;
-import model.ObjectSaleFactory;
-import model.TestObjectSaleFactory;
+import model.sale.ObjectSale;
+import model.factory.sale.ObjectSaleFactory;
+import model.factory.sale.TestObjectSaleFactory;
 
 
 // Le costanti utilizzate nel codice
 import static Util.Constant.*;
 import Util.Util;
-import model.Customer;
-import model.TestUserFactory;
-import model.UserFactory;
+import model.factory.sale.ObjectSaleFactoryBuilder;
+import model.user.Customer;
+import model.factory.user.TestUserFactory;
+import model.factory.user.UserFactory;
+import model.factory.user.UserFactoryBuilder;
+import model.user.Vendor;
 
 
 
@@ -52,11 +55,12 @@ public class Acquista extends HttpServlet {
     {
         
         
-          HttpSession session = request.getSession(false);
+        
+        HttpSession session = request.getSession(false);
        
          if(session != null)
         {
-           
+            String appMode = session.getServletContext().getInitParameter(APP_MODE);
             Enumeration<String> attributes = session.getAttributeNames();
             boolean isCustomerPresent = false;
         
@@ -78,7 +82,7 @@ public class Acquista extends HttpServlet {
            { 
                //Assumo che username sia impostato
                String username = (String)session.getAttribute(USERNAME);
-               UserFactory usrFactory = TestUserFactory.getInstance();
+               UserFactory usrFactory = UserFactoryBuilder.getFactory(appMode);
                
                //Nell'applicazione assumo che il campo username abbia vincolo UNIQUE
                // inoltre assumo dal momento che isCustomer è true, che l'utente nella sessione sia un customer
@@ -91,16 +95,25 @@ public class Acquista extends HttpServlet {
                if(objId != null && c != null)
                {                   
                
-                ObjectSaleFactory objFactory = TestObjectSaleFactory.getInstance();
+                ObjectSaleFactory objFactory = ObjectSaleFactoryBuilder.getFactory(appMode);
                 ObjectSale obj = objFactory.getObjectSaleById(objId.intValue());
                 
                 if(obj != null)
                 {
                     if( obj.getNumOfItems() < 1 )                    
                          request.setAttribute(UNAVAILABLE_OBJECT_MESSAGE, UNAVAILABLE_OBJECT_MESSAGE_TEXT);                   
-                    else                      
+                    else  
+                    {
                     //aggiungiamo alla richiesta l'oggetto                 
                     request.setAttribute(SELECTED_OBJECT,obj);
+                    
+                    //Otteniamo l'id del venditore
+                    Vendor v = obj.getVendor();
+                    
+                    request.setAttribute(CUSTOMER_ID, c.getUserId());
+                    request.setAttribute(VENDOR_ID, v.getUserId());
+                    
+                    }
                      
                     request.getRequestDispatcher(BUY_PAGE).forward(request, response);                  
                 

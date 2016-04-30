@@ -3,9 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package model.factory.user;
 
+import model.factory.user.UserFactory;
 import java.util.List;
+import model.user.Customer;
+import model.user.User;
+import model.user.Vendor;
 
 /**
  *
@@ -13,6 +17,17 @@ import java.util.List;
  */
 public class DbUserFactory extends UserFactory
 {
+     private static DbUserFactory instance;
+    
+     public static DbUserFactory getInstance()
+    {
+       if(instance == null)
+       {
+           instance = new DbUserFactory();
+       }
+       
+        return instance;
+    }
 
  
 

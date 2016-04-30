@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package model.factory.user;
 
 import java.util.List;
+import model.user.Customer;
+import model.user.User;
+import model.user.Vendor;
 
 /**
  *

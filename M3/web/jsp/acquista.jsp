@@ -57,13 +57,24 @@
  
                 <!--  Un oggetto è diposnibile all'acquisto   -->
               
-                            <div>${o.name}</div>
-                            <div><img src="${o.imgUrl}" width="200" height="200" alt="${o.description}"></div>                             
-                            <div>${o.price}</div>
-                            <div>${o.numOfItems}</div>
-                            <div><a href="cliente.html"><img src="img/icona-carrello.png" alt="carrello" width="90" height="90"></a> </div>
-                        
-            
+                <div><h2>${o.name}</h2></div>
+                <div><h3>${o.description}</h3></div>
+                 <div><img src="${o.imgUrl}" width="200" height="200" alt="${o.description}"></div>                             
+                 <div>Prezzo: <strong>${o.price}€</strong></div>
+                 <div>Pezzi disponibili: ${o.numOfItems}</div>
+                                                 
+                    <div id="main-form">
+                        <form method="get" action="acquista.html">
+                            <input type="hidden" name="CustomerId" value="${CustomerId}">
+                            <input type="hidden" name="VendorId" value="${VendorId}">
+                            <input type="hidden" name="ObjectId" value="${o.objectSaleId}">
+                            <div class="form-row clearfix">
+                              <input type="submit" value="Conferma acquisto">
+                            </div>
+                       </form>
+
+           </div>
+                            
        </c:otherwise>
      </c:choose>
             

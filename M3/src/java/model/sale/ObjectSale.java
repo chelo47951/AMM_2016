@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package model.sale;
 
+import model.user.Vendor;
 import Util.Constant;
 import java.util.Random;
 
@@ -34,7 +35,8 @@ public class ObjectSale
               String category,
               double price,
               int numOfItems,
-              String imgUrl                            
+              String imgUrl,
+              Vendor vendor
                         )
     {        
         
@@ -48,7 +50,7 @@ public class ObjectSale
               this.price = price;
               this.numOfItems = numOfItems;
               this.imgUrl  = imgUrl;    
-    
+              this.vendor = vendor;
     }
 
     /**

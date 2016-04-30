@@ -12,4 +12,9 @@
      <welcome-file-list>
         <welcome-file>jsp/descrizione.jsp</welcome-file>
     </welcome-file-list>
+    <context-param>
+        <param-name>APP_MODE</param-name>
+        <param-value>TestFactory</param-value>
+    </context-param>
+    
 </web-app>

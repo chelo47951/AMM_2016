@@ -65,7 +65,7 @@
                             <td>${o.name}</td>
                             <td><img src="${o.imgUrl}" alt="${o.description}"></td>
                             <td>${o.numOfItems}</td>
-                            <td>${o.price}</td>
+                            <td>${o.price}€</td>
                             <td><a href="acquista.html?ObjectSaleId=${o.objectSaleId}"><img src="img/icona-carrello.png" alt="carrello"></a></td>
                         </tr>
                   </c:if>

@@ -14,22 +14,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.TestUserFactory;
-import model.User;
-import model.UserFactory;
+import model.factory.user.TestUserFactory;
+import model.user.User;
+import model.factory.user.UserFactory;
 
 
 import java.util.List;
 import javax.servlet.http.HttpSession;
-import model.Customer;
-import model.ObjectSale;
-import model.ObjectSaleFactory;
-import model.ShoppingCart;
-import model.TestObjectSaleFactory;
-import model.Vendor;
+import model.user.Customer;
+import model.sale.ObjectSale;
+import model.factory.sale.ObjectSaleFactory;
+import model.sale.ShoppingCart;
+import model.factory.sale.TestObjectSaleFactory;
+import model.user.Vendor;
 
 // Le costanti utilizzate nel codice
 import static Util.Constant.*;
+import model.factory.sale.ObjectSaleFactoryBuilder;
+import model.factory.user.UserFactoryBuilder;
 
 
 
@@ -55,7 +57,10 @@ public class Login extends HttpServlet {
       
         HttpSession session = request.getSession(true);
         
-        UserFactory userfactory = TestUserFactory.getInstance();
+        
+        String appMode = session.getServletContext().getInitParameter(APP_MODE);
+        
+        UserFactory userfactory =  UserFactoryBuilder.getFactory(appMode);
         
         if( request.getParameter("Submit") != null )
         {
@@ -80,7 +85,7 @@ public class Login extends HttpServlet {
                             request.setAttribute(CUSTOMER, user);
                             session.removeAttribute(IS_VENDOR);
                             
-                            ObjectSaleFactory factory = TestObjectSaleFactory.getInstance();        
+                            ObjectSaleFactory factory = ObjectSaleFactoryBuilder.getFactory(appMode);       
                             List<ObjectSale> items = factory.getSellingObjectList(); 
                             
                             request.setAttribute(SELLING_ITEMS, items);

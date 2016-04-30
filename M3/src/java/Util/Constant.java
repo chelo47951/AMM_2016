@@ -14,6 +14,7 @@ public class Constant
 {
     public final static int MAX_ID = 1024;
     
+     public final static String APP_MODE = "APP_MODE";
     public final static String TEST_FACTORY_MODE = "TestFactory";
     public final static String DB_FACTORY_MODE = "DbFactory";
     
@@ -49,7 +50,11 @@ public class Constant
       public final static String PASSWORD = "Password" ;
       
       public final static String SELECTED_OBJECT = "o";
+      
+      public final static String CUSTOMER_ID = "CustomerId";
+      public final static String VENDOR_ID = "VendorId";
       public final static String OBJECT_ID = "ObjectSaleId";
+      
       public final static String OBJECT_NAME = "ObjectName";
       public final static String OBJECT_DESCRIPTION = "ObjectDescription";
       public final static String OBJECT_CATEGORY = "ObjectCategory";

@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package model.factory.sale;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.sale.ObjectSale;
 import static Util.Constant.*;
+import model.factory.user.TestUserFactory;
+import model.user.Vendor;
 
 
 /**
@@ -27,13 +30,16 @@ public class TestObjectSaleFactory extends ObjectSaleFactory
        
          // Test: hardcoded items
          
+        Vendor vendor = TestUserFactory.getInstance().getVendorByUsername("verdig55");
+         
         ObjectSale kirk = new ObjectSale(
                 "Captain Kirk",
                 "Star Trek: Captain Kirk",
                 ACTION_FIGURE,
                 299.00,
                 3,
-                "img/kirk.jpg"                                
+                "img/kirk.jpg",
+                vendor
         );
         
         items.add(kirk);
@@ -45,7 +51,8 @@ public class TestObjectSaleFactory extends ObjectSaleFactory
                 ACTION_FIGURE,
                 235.00,
                 4,
-                "img/theCrow.jpg"                                
+                "img/theCrow.jpg",
+                vendor                                
         );
         
         items.add(crow);
@@ -56,7 +63,8 @@ public class TestObjectSaleFactory extends ObjectSaleFactory
                 ACTION_FIGURE,
                 85.00,
                 2,
-                "img/devilman.jpg"                                
+                "img/devilman.jpg",
+                vendor                                
         );
         
         items.add(devilman);
@@ -70,7 +78,8 @@ public class TestObjectSaleFactory extends ObjectSaleFactory
                 ROBOT,
                 155.00,
                 5,
-                "img/jeeg.jpg"                                
+                "img/jeeg.jpg" ,
+                vendor                               
         );
         
         items.add(jeeg);
@@ -83,7 +92,8 @@ public class TestObjectSaleFactory extends ObjectSaleFactory
                 ROBOT,
                 145.00,
                 3,
-                "img/goldrake.jpg"                                
+                "img/goldrake.jpg",
+                vendor                                
         );
         
         items.add(goldrake);
@@ -96,7 +106,8 @@ public class TestObjectSaleFactory extends ObjectSaleFactory
                 DVD,
                 35.00,
                 6,
-                "img/Nausicaa-dvd.png"                                
+                "img/Nausicaa-dvd.png",
+                vendor                               
         );
         
         items.add(nausicaa);

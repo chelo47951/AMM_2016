@@ -14,11 +14,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.ObjectSale;
+import model.sale.ObjectSale;
 
-import model.ObjectSaleFactory;
-import model.ShoppingCart;
-import model.TestObjectSaleFactory;
+import model.factory.sale.ObjectSaleFactory;
+import model.sale.ShoppingCart;
+import model.factory.sale.TestObjectSaleFactory;
 
 
 import java.util.ArrayList;
@@ -28,6 +28,7 @@ import javax.servlet.http.HttpSession;
 
 // Le costanti utilizzate nel codice
 import static Util.Constant.*;
+import model.factory.sale.ObjectSaleFactoryBuilder;
 
 
 /**
@@ -54,7 +55,8 @@ public class Cliente extends HttpServlet {
        
        if(session != null)
        {
-           
+        
+        String appMode = session.getServletContext().getInitParameter(APP_MODE);
         Enumeration<String> attributes = session.getAttributeNames();
         boolean isCustomerPresent = false;
         
@@ -74,7 +76,7 @@ public class Cliente extends HttpServlet {
             Boolean isCustomer = (Boolean)session.getAttribute(IS_CUSTOMER);
             if(isCustomer != null && isCustomer == true)
            {                
-             ObjectSaleFactory factory = TestObjectSaleFactory.getInstance();        
+             ObjectSaleFactory factory =  ObjectSaleFactoryBuilder.getFactory(appMode);        
              List<ObjectSale> items = factory.getSellingObjectList(); 
 
              request.setAttribute(SELLING_ITEMS, items);
