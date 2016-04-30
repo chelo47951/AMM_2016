@@ -45,24 +45,25 @@
                     <div id="errorMessage">
                         <p>Utente non autenticato o non autorizzato all'accesso dei contenuti della pagina<p>
                   </div>
-               </c:when>
+               </c:when>                   
+                    
+              <c:when test="${UnavailableObjectMessage != null && !UnavailableObjectMessage.equals("")}">
+                   <div id="errorMessage">
+                        <p>${UnavailableObjectMessage}<p>
+                  </div>
+              </c:when>
 
          <c:otherwise>      
  
-                
+                <!--  Un oggetto è diposnibile all'acquisto   -->
               
                             <div>${o.name}</div>
-                            <div><img src="${o.imgUrl}" alt="${o.description}"></div>                             
+                            <div><img src="${o.imgUrl}" width="200" height="200" alt="${o.description}"></div>                             
                             <div>${o.price}</div>
-                            <div>${o.numOfItems}</div>>
-                            <div><a href="cliente.html"><img src="${shopperImgUrl}" alt="carrello"></a> </div>
+                            <div>${o.numOfItems}</div>
+                            <div><a href="cliente.html"><img src="img/icona-carrello.png" alt="carrello" width="90" height="90"></a> </div>
                         
-             
-         
-              
-             
-         </table
-           
+            
        </c:otherwise>
      </c:choose>
             

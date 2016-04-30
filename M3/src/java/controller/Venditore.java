@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static Util.Constant.*;
+import java.util.Enumeration;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,9 +36,44 @@ public class Venditore extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
+        
+      HttpSession session = request.getSession(false);
+       
+       if(session != null)
+       {
+           
+            Enumeration<String> attributes = session.getAttributeNames();
+            
+            boolean isVendorPresent = false;
+        
+            while (attributes.hasMoreElements())
+            {
+              String name = (String) attributes.nextElement();
+              
+              if(name.equals(IS_VENDOR))
+              {
+                  isVendorPresent = true;
+                  break;
+              }
+            }
+           
+            if(isVendorPresent)
+           {
+               Boolean isVendor = (Boolean)session.getAttribute(IS_VENDOR);
+               if(isVendor != null && isVendor == true)
+              {                
+                //TODO
+
+              }
+           }
+           
       
         
-        request.getRequestDispatcher(VENDOR_PAGE).forward(request, response);
+            request.getRequestDispatcher(VENDOR_PAGE).forward(request, response);
+       }
+       
+          // Se non esiste neanche la sessione rimandiamo al login
+        request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
        
     }
 

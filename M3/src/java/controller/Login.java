@@ -18,7 +18,7 @@ import model.TestUserFactory;
 import model.User;
 import model.UserFactory;
 
-import static Util.Constant.*;
+
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import model.Customer;
@@ -27,6 +27,11 @@ import model.ObjectSaleFactory;
 import model.ShoppingCart;
 import model.TestObjectSaleFactory;
 import model.Vendor;
+
+// Le costanti utilizzate nel codice
+import static Util.Constant.*;
+
+
 
 /**
  *
@@ -55,8 +60,8 @@ public class Login extends HttpServlet {
         if( request.getParameter("Submit") != null )
         {
             
-                String username = request.getParameter("username");
-                String pwd =      request.getParameter("pwd");
+                String username = request.getParameter(USERNAME);
+                String pwd =      request.getParameter(PASSWORD);
 
                 if( username!= null && pwd != null )
                 {            
@@ -65,38 +70,36 @@ public class Login extends HttpServlet {
                     if(userfactory.verifyPassword(username, pwd))
                     {
                         //Login avvenuto con successo
-                        session.setAttribute("LoggedIn", true);
-                        session.setAttribute("Username", user.getUsername());
+                        session.setAttribute(IS_LOGGED_IN, true);
+                        session.setAttribute(USERNAME, user.getUsername());
                         
                         
                         if( user instanceof Customer )
-                        {
-                            request.setAttribute("Customer", user);
-                            session.setAttribute("IsCustomer", true);
-                            session.removeAttribute("IsVendor");
+                        {                            
+                            session.setAttribute(IS_CUSTOMER, true);
+                            request.setAttribute(CUSTOMER, user);
+                            session.removeAttribute(IS_VENDOR);
                             
                             ObjectSaleFactory factory = TestObjectSaleFactory.getInstance();        
                             List<ObjectSale> items = factory.getSellingObjectList(); 
                             
-                            request.setAttribute("sellingItems", items);
-                            request.setAttribute("shopperImgUrl", ShoppingCart.SHOP_CART_ICON);
-                            
+                            request.setAttribute(SELLING_ITEMS, items);
                             
                             request.getRequestDispatcher(CUSTOMER_PAGE).forward(request, response);
                         }
                         else if ( user instanceof Vendor )
                         {
-                            session.setAttribute("IsVendor", true);
-                            session.removeAttribute("IsCustomer");
-                            request.setAttribute("Vendor", user);
+                            session.setAttribute(IS_VENDOR, true);
+                            request.setAttribute(VENDOR, user);
+                            session.removeAttribute(IS_CUSTOMER);
+                            
                             request.getRequestDispatcher(VENDOR_PAGE).forward(request, response);
                         }
                     }
 
-                }
+                }                
                 
-                String errorMessage = "Non è stato possibile autenticare l'utente. Verificare username e password";
-                request.setAttribute("errorMessage", errorMessage);
+                request.setAttribute(LOGIN_ERROR_MESSAGE, LOGIN_ERROR_MESSAGE_TEXT);
                 
         }
         

@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class ObjectSale
 {
-    private int ObjectSaleId;
+    private int objectSaleId;
     private String name;
     private String description;
     private String category;
@@ -37,8 +37,10 @@ public class ObjectSale
               String imgUrl                            
                         )
     {        
+        
+             // Generazione id per test
               Random rn = new Random();                       
-              this.ObjectSaleId =  rn.nextInt() % Constant.MAX_ID; 
+              this.objectSaleId = Math.abs( rn.nextInt() % Constant.MAX_ID  ); 
               
               this.name = name;
               this.description =  description;
@@ -145,6 +147,20 @@ public class ObjectSale
      */
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    /**
+     * @return the objectSaleId
+     */
+    public int getObjectSaleId() {
+        return objectSaleId;
+    }
+
+    /**
+     * @param objectSaleId the objectSaleId to set
+     */
+    public void setObjectSaleId(int objectSaleId) {
+        this.objectSaleId = objectSaleId;
     }
     
 }

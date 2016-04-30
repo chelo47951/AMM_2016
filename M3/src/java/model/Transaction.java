@@ -22,7 +22,7 @@ public class Transaction
     public Transaction(ObjectSale objectSale, Customer customer)
     {
         Random rn = new Random();
-        transactionId =  rn.nextInt() % Constant.MAX_ID;
+        transactionId =  Math.abs( rn.nextInt() % Constant.MAX_ID  );
         
         this.vendor = objectSale.getVendor();
         this.customer = customer; 

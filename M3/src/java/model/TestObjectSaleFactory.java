@@ -32,7 +32,7 @@ public class TestObjectSaleFactory extends ObjectSaleFactory
                 "Star Trek: Captain Kirk",
                 ACTION_FIGURE,
                 299.00,
-                2,
+                3,
                 "img/kirk.jpg"                                
         );
         
@@ -120,7 +120,20 @@ public class TestObjectSaleFactory extends ObjectSaleFactory
     @Override
     public ObjectSale getObjectSaleById(int id) 
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
+         if( id < 1)
+            return null;
+               
+        for(ObjectSale o: items)
+        {
+            if(o.getObjectSaleId()== id)
+            {
+                //trovato
+                return o;
+            }
+        }
+        
+        return null;
     }
 
     @Override

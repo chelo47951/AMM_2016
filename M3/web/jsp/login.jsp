@@ -45,21 +45,21 @@
         <section>
             <h2>Pagina Login</h2>
             
-         <c:if test="${errorMessage != null}">
+         <c:if test="${LoginErrorMessage != null}">
              <div id="errorMessage">
-                 <p>${errorMessage}<p>
+                 <p>${LoginErrorMessage}<p>
              </div>
         </c:if>   
             
          <div id="main-form">
             <form method="get">
                 <div class="form-row">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username">
+                <label for="Username">Username:</label>
+                <input type="text" id="Username" name="Username">
                 </div>
                 <div class="form-row">
-                <label for="pwd">Password:</label>
-                <input type="password" id="pwd" name="pwd">
+                <label for="Password">Password:</label>
+                <input type="password" id="Password" name="Password">
                 </div>
                 <div class="form-row">
                 <input type="submit" name="Submit" value="Accedi">

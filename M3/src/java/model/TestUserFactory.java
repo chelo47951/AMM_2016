@@ -123,6 +123,43 @@ public class TestUserFactory extends UserFactory
             return false;
         
     }
+
+    @Override
+    public Customer getCustomerByUsername(String username) 
+    {
+        if(username == null || username.equals(""))
+            return null;
+               
+        for(Customer c: customers)
+        {
+            if(c.getUsername().equals(username))
+            {
+                //trovato
+                return c;
+            }
+        }
+        
+        return null;
+    }
+
+    @Override
+    public Vendor getVendorByUsername(String username)
+    {
+      
+         if(username == null || username.equals(""))
+            return null;
+               
+        for(Vendor v: vendors)
+        {
+            if(v.getUsername().equals(username))
+            {
+                //trovato
+                return v;
+            }
+        }
+        
+        return null;
+    }
     
     
     
