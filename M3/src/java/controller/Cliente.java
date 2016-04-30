@@ -57,6 +57,7 @@ public class Cliente extends HttpServlet {
        {
         
         String appMode = session.getServletContext().getInitParameter(APP_MODE);
+        
         Enumeration<String> attributes = session.getAttributeNames();
         boolean isCustomerPresent = false;
         
