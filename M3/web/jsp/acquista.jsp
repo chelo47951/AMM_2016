@@ -4,6 +4,7 @@
     Author     : fab
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -47,10 +48,54 @@
                   </div>
                </c:when>                   
                     
-              <c:when test="${UnavailableObjectMessage != null && !UnavailableObjectMessage.equals("")}">
+              <c:when test="${UnavailableObjectMessage != null && !UnavailableObjectMessage.equals(\"\")}">
                    <div id="errorMessage">
                         <p>${UnavailableObjectMessage}<p>
                   </div>
+                   <p>Torna alla tua<a href="cliente.html"> pagina</a></p>
+              </c:when>
+                
+                <c:when test="${TransactionCommittedMessage != null && TransactionCommittedMessage!=\"\"}">
+                   
+                    <h3>${TransactionCommittedMessage}</h3>
+                    
+                     <table id="articoli">
+                            <tr>
+                                <th id="h-voce">Voce</th>
+                                <th id="h-importo">Importo</th>             
+                            </tr>
+                
+                        <tr>
+                            <td>Saldo precedente</td>
+                            
+                            <td>+${PreviousBalance}€</td>
+                        </tr>
+                
+                
+                        <tr>
+                            <td>Presente acquisto</td>
+                            
+                            <td>-${CurrentPurchase}€</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Saldo</td>
+                            
+                            <td>+${CurrentBalance}€</td>
+                        </tr>
+                        
+                     </table>
+                        
+                        <p>Torna alla tua<a href="cliente.html"> pagina</a></p>
+                    
+                    
+               </c:when> 
+                    
+                     <c:when test="${TransactionRolledBackMessage != null && TransactionRolledBackMessage!=\"\"}">
+                   <div id="errorMessage">
+                        <p>${TransactionRolledBackMessage}<p>
+                  </div>
+                    <p>Torna alla tua<a href="cliente.html"> pagina</a></p>
               </c:when>
 
          <c:otherwise>      
@@ -67,9 +112,9 @@
                         <form method="get" action="acquista.html">
                             <input type="hidden" name="CustomerId" value="${CustomerId}">
                             <input type="hidden" name="VendorId" value="${VendorId}">
-                            <input type="hidden" name="ObjectId" value="${o.objectSaleId}">
+                            <input type="hidden" name="ObjectSaleId" value="${o.objectSaleId}">
                             <div class="form-row clearfix">
-                              <input type="submit" value="Conferma acquisto">
+                              <input type="submit" name="Submit" value="Conferma acquisto">
                             </div>
                        </form>
 
