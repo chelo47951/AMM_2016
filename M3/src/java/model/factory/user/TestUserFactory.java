@@ -45,7 +45,7 @@ public class TestUserFactory extends UserFactory
          
          
          Vendor v1 = new Vendor();
-         v1.setUserId(1);
+         v1.setUserId(10);
          
          v1.setFname("Giuseppe");
          v1.setLname("Verdi");
@@ -157,6 +157,44 @@ public class TestUserFactory extends UserFactory
         for(Vendor v: vendors)
         {
             if(v.getUsername().equals(username))
+            {
+                //trovato
+                return v;
+            }
+        }
+        
+        return null;
+    }
+
+    @Override
+    public Customer getCustomerById(int id)
+    {
+          if(id <1)
+            return null;
+               
+        for(Customer c: customers)
+        {
+            if(c.getUserId() == id)
+            {
+                //trovato
+                return c;
+            }
+        }
+        
+        return null;
+        
+        
+    }
+
+    @Override
+    public Vendor getVendorById(int id)
+    {
+          if(id <1)
+            return null;
+               
+        for(Vendor v: vendors)
+        {
+            if(v.getUserId() == id)
             {
                 //trovato
                 return v;

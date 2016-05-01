@@ -11,6 +11,9 @@ import Util.Constant;
 import java.util.Random;
 import model.sale.ObjectSale;
 
+// Le costanti utilizzate nel codice
+import static Util.Constant.*;
+
 /**
  *
  * @author fab
@@ -20,7 +23,12 @@ public class Transaction
     private int transactionId; 
     private Vendor vendor;
     private Customer customer;
+    private ObjectSale objectSale;
     private double amount;
+    private boolean isSuccess;
+    private String message;
+    private String rollbackReasonMessage;
+    
     
     public Transaction(ObjectSale objectSale, Customer customer)
     {
@@ -30,37 +38,85 @@ public class Transaction
         this.vendor = objectSale.getVendor();
         this.customer = customer; 
         this.amount = objectSale.getPrice();
-    
+        this.objectSale = objectSale;
+        this.isSuccess = false;
     }
     
      private boolean buy()
     {
-        if(customer.pay(amount) &&  vendor.creditMoney(amount) )
+        boolean isCustomerSuccess = false, isVendorSuccess = false;
+        if( (isCustomerSuccess = customer.pay(amount)) && (isVendorSuccess = vendor.creditMoney(amount)) )
+        {
+          int num = objectSale.getNumOfItems();
+          objectSale.setNumOfItems(--num);
+          
+          customer.checkoutItem(objectSale);
+         
           return true;
+        }
         else
+        {
+            if(!isCustomerSuccess)
+            { 
+                rollbackReasonMessage = TRANSACTION_ROLLEDBACK_REASON_CUSTOMER_TEXT;
+                
+                
+            }
+            else if(!isVendorSuccess)
+            {
+                rollbackReasonMessage = TRANSACTION_ROLLEDBACK_REASON_VENDOR_TEXT;
+            }
+        }
             return false;
     }
     
-     private boolean commit()
+     public boolean commit()
     { 
         if(buy())
         {
+            message = TRANSACTION_COMMITED_MESSAGE_TEXT;
             persistChanges();
+            isSuccess = true;
             return true;
         }
         else
-        return rollBack();
+        {
+           message = TRANSACTION_ROLLEDBACK_MESSAGE_TEXT + rollbackReasonMessage;           
+           return rollBack();
+        }
     }
     
     private boolean rollBack()
     {
+         isSuccess = false;
         // TODO:  Ripristina lo stato prima dell'acquisto
         return false;
     }
 
     private void persistChanges() 
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       //Salva su db
+    }
+
+    /**
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * @param message the message to set
+     */
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    /**
+     * @return the isSuccess
+     */
+    public boolean isIsSuccess() {
+        return isSuccess;
     }
     
  

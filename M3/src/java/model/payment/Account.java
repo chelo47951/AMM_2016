@@ -38,6 +38,7 @@ public class Account
     
     public boolean deposit(double amount)
     {
+        // Al momento non sono definite condizioni che consentono il fallimento dell'accredito
         balance+= amount;
         return true;
     }

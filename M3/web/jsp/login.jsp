@@ -52,7 +52,7 @@
         </c:if>   
             
          <div id="main-form">
-            <form method="get">
+            <form method="get"  action="login.html">
                 <div class="form-row">
                 <label for="Username">Username:</label>
                 <input type="text" id="Username" name="Username">

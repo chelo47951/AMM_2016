@@ -47,17 +47,31 @@ public class Customer extends User
             return false;
     }
     
+    public boolean refund(double amount)
+    {
+        if(getAccount().deposit(amount))
+            return true;
+        else
+            return false;
+    }
+    
 
 
-    private void addToCart(ObjectSale objectSale)
+    public void addToCart(ObjectSale objectSale)
     {
        cart.addToCart(objectSale);
     }
     
-     private void removeFromPurchasedItems(ObjectSale objectSale)
+     public void removeFromPurchasingItems(ObjectSale objectSale)
     {
+      
        cart.removeFromCart(objectSale);
     }
+     
+     public void checkoutItem(ObjectSale objectSale)
+     {
+          removeFromPurchasingItems(objectSale);
+     }
     
     
 }

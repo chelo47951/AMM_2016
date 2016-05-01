@@ -34,6 +34,15 @@ public abstract class UserFactory
    // Ricerca un venditore per username
     public abstract Vendor getVendorByUsername(String username); 
     
+    
+        // Ricerca un cliente per username
+    public abstract Customer getCustomerById(int id); 
+    
+   // Ricerca un venditore per username
+    public abstract Vendor getVendorById(int id); 
+    
+    
+    
     public abstract boolean verifyPassword(String username,  String password);
     
    

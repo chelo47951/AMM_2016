@@ -50,7 +50,7 @@ public class TestObjectSaleFactory extends ObjectSaleFactory
                 "The Crow: Eric Draven",
                 ACTION_FIGURE,
                 235.00,
-                4,
+                0,
                 "img/theCrow.jpg",
                 vendor                                
         );

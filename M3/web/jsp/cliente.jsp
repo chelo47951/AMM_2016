@@ -60,7 +60,7 @@
                 
                 
                 <c:forEach var="o" items="${sellingItems}">
-                    <c:if test="${o.numOfItems > 0}">
+                    <c:if test="${o.numOfItems >= 0}">
                         <tr>
                             <td>${o.name}</td>
                             <td><img src="${o.imgUrl}" alt="${o.description}"></td>

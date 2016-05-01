@@ -22,8 +22,7 @@ import model.factory.sale.TestObjectSaleFactory;
 
 
 // Le costanti utilizzate nel codice
-import static Util.Constant.*;
-import Util.Util;
+
 import model.factory.sale.ObjectSaleFactoryBuilder;
 import model.user.Customer;
 import model.factory.user.TestUserFactory;
@@ -31,7 +30,10 @@ import model.factory.user.UserFactory;
 import model.factory.user.UserFactoryBuilder;
 import model.user.Vendor;
 
-
+import static Util.Constant.*;
+import Util.Util;
+import model.payment.PaymentSystem;
+import model.payment.Transaction;
 
 
 /**
@@ -57,10 +59,18 @@ public class Acquista extends HttpServlet {
         
         
         HttpSession session = request.getSession(false);
+        
+        
+        
+        
        
          if(session != null)
         {
             String appMode = session.getServletContext().getInitParameter(APP_MODE);
+            
+            UserFactory usrFactory = UserFactoryBuilder.getFactory(appMode);
+            ObjectSaleFactory objFactory = ObjectSaleFactoryBuilder.getFactory(appMode);
+
             Enumeration<String> attributes = session.getAttributeNames();
             boolean isCustomerPresent = false;
         
@@ -75,60 +85,113 @@ public class Acquista extends HttpServlet {
               }
             }
 
-        if(isCustomerPresent)
-        {
-            Boolean isCustomer = (Boolean)session.getAttribute(IS_CUSTOMER);
-            if(isCustomer != null && isCustomer == true)
-           { 
-               //Assumo che username sia impostato
-               String username = (String)session.getAttribute(USERNAME);
-               UserFactory usrFactory = UserFactoryBuilder.getFactory(appMode);
-               
-               //Nell'applicazione assumo che il campo username abbia vincolo UNIQUE
-               // inoltre assumo dal momento che isCustomer è true, che l'utente nella sessione sia un customer
-               Customer c = usrFactory.getCustomerByUsername(username) ;
-               
-               //Prelevo dalla richiesta l'id dell'oggetto da acquistare
-               Integer objId = Util.tryParse(request.getParameter(OBJECT_ID));
-              
-               
-               if(objId != null && c != null)
-               {                   
-               
-                ObjectSaleFactory objFactory = ObjectSaleFactoryBuilder.getFactory(appMode);
-                ObjectSale obj = objFactory.getObjectSaleById(objId.intValue());
-                
-                if(obj != null)
-                {
-                    if( obj.getNumOfItems() < 1 )                    
-                         request.setAttribute(UNAVAILABLE_OBJECT_MESSAGE, UNAVAILABLE_OBJECT_MESSAGE_TEXT);                   
-                    else  
+            if(isCustomerPresent)
+            {
+                Boolean isCustomer = (Boolean)session.getAttribute(IS_CUSTOMER);
+                if(isCustomer != null && isCustomer == true)
+               { 
+                   
+                   //La servlet gestisce sia il riepilogo che la conferma dell'acquisto
+                   if( request.getParameter("Submit") != null )
+                   {
+                       //Conferma acquisto
+                       Integer CustomerId =  Util.tryParse(request.getParameter(CUSTOMER_ID));
+                       Integer VendorId =    Util.tryParse(request.getParameter(VENDOR_ID));
+                       Integer ObjectId =    Util.tryParse(request.getParameter(OBJECT_ID));
+                       
+                       if( CustomerId!= null && CustomerId > 0 &&
+                           VendorId!= null && VendorId > 0 &&  
+                           ObjectId!= null && ObjectId > 0 )
+                       {
+                           
+                           Customer c = usrFactory.getCustomerById(CustomerId);
+                           Vendor v = usrFactory.getVendorById(VendorId);
+                           ObjectSale obj = objFactory.getObjectSaleById(ObjectId);
+                           
+                           if(c != null && v != null && obj != null)
+                           {
+                               double previousBalance =  c.getAccount().getBalance();
+                               Transaction t = PaymentSystem.buy(obj, c);
+                               if(t.isIsSuccess())
+                               {
+                                   request.setAttribute(TRANSACTION_COMMITED_MESSAGE, t.getMessage());
+                                   request.setAttribute(OBJECT_ID,ObjectId);
+                                   request.setAttribute(PREVIOUS_BALANCE,previousBalance);
+                                   request.setAttribute(CURRENT_PURCHASE,obj.getPrice());
+                                   request.setAttribute(CURRENT_BALANCE ,c.getAccount().getBalance() );
+                                   
+                                   
+                               }
+                               else
+                               {
+                                   request.setAttribute(TRANSACTION_ROLLEDBACK_MESSAGE, t.getMessage());
+                                 
+                               }
+                               
+                                request.getRequestDispatcher(BUY_PAGE).forward(request, response); 
+                               
+                           }
+                           
+                            request.getRequestDispatcher(CUSTOMER_PAGE).forward(request, response);
+                           
+                       
+                       }
+                   
+                   }                  
+                  else
+                  {
+                      //Riepilogo oggetto
+                   
+                   
+                   //Assumo che username sia impostato
+                   String username = (String)session.getAttribute(USERNAME);
+                 
+                   //Nell'applicazione assumo che il campo username abbia vincolo UNIQUE
+                   // inoltre assumo dal momento che isCustomer è true, che l'utente nella sessione sia un customer
+                   Customer c = usrFactory.getCustomerByUsername(username) ;
+
+                   //Prelevo dalla richiesta l'id dell'oggetto da acquistare
+                   Integer objId = Util.tryParse(request.getParameter(OBJECT_ID));
+
+
+                   if(objId != null && c != null)
+                   {                   
+
+                  
+                    ObjectSale obj = objFactory.getObjectSaleById(objId.intValue());
+
+                    if(obj != null)
                     {
-                    //aggiungiamo alla richiesta l'oggetto                 
-                    request.setAttribute(SELECTED_OBJECT,obj);
-                    
-                    //Otteniamo l'id del venditore
-                    Vendor v = obj.getVendor();
-                    
-                    request.setAttribute(CUSTOMER_ID, c.getUserId());
-                    request.setAttribute(VENDOR_ID, v.getUserId());
-                    
-                    }
-                     
-                    request.getRequestDispatcher(BUY_PAGE).forward(request, response);                  
-                
-                    
+                        if( obj.getNumOfItems() < 1 )                    
+                             request.setAttribute(UNAVAILABLE_OBJECT_MESSAGE, UNAVAILABLE_OBJECT_MESSAGE_TEXT);                   
+                        else  
+                        {
+                        //aggiungiamo alla richiesta l'oggetto                 
+                        request.setAttribute(SELECTED_OBJECT,obj);
+
+                        //Otteniamo l'id del venditore
+                        Vendor v = obj.getVendor();
+
+                        request.setAttribute(CUSTOMER_ID, c.getUserId());
+                        request.setAttribute(VENDOR_ID, v.getUserId());
+
+                        }
+
+                        request.getRequestDispatcher(BUY_PAGE).forward(request, response);                  
+
+
+                     }
+
+                   }
+
+                     request.getRequestDispatcher(CUSTOMER_PAGE).forward(request, response);
                  }
-                
+
+               }               
+
+
+
                }
-               
-                 request.getRequestDispatcher(CUSTOMER_PAGE).forward(request, response);
-               
-           }               
-             
-           
-            
-           }
         
            
         }
