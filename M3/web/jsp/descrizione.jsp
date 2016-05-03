@@ -23,23 +23,8 @@
     <body>
         
        <!-- Header della pagina -->
-        <header>
-        <h1>
-             <img src="img/logo.png" alt="Logo Robofigures">
-        </h1>
-               <!-- Sezione di navigazione -->
-        <nav>
-            <!-- Navigazione del sito -->
-            <div id="main-menu">
-                <ul> 
-                    <li><a href="login.html">Login</a></li>                 
-                </ul>
-            </div>
-            
-                    
-        </nav>
-        
-            
+        <header>        
+            <jsp:include page="header.jsp" />
         </header>
         
         
@@ -100,11 +85,7 @@
        
          <!-- Footer della pagina -->
          <footer>           
-           <p>
-               Contacts: <a href="mailto:chelo.fabrizio@tiscali.it"> chelo.fabrizio@tiscali.it</a>
-           </p>
-              <p>&copy;2016 AMM 2016 Project<p>
-           
+             <jsp:include page="footer.jsp" />           
         </footer>   
         
     </body>

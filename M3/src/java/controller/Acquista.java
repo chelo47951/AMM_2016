@@ -31,6 +31,8 @@ import model.factory.user.UserFactoryBuilder;
 import model.user.Vendor;
 
 import static Util.Constant.*;
+import Util.MenuBuilder;
+import Util.MenuLi;
 import Util.Util;
 import model.payment.PaymentSystem;
 import model.payment.Transaction;
@@ -57,6 +59,8 @@ public class Acquista extends HttpServlet {
     {
         
         
+        MenuBuilder mb = new MenuBuilder();        
+       
         
         HttpSession session = request.getSession(false);        
        
@@ -124,9 +128,16 @@ public class Acquista extends HttpServlet {
                                  
                                }
                                
+                                List<MenuLi> menuItems = mb.getMenuByPage(BUY_PAGE);        
+                                request.setAttribute(MENU_ITEMS, menuItems);
+                               
                                 request.getRequestDispatcher(BUY_PAGE).forward(request, response); 
                                
                            }
+                           
+                             
+                            List<MenuLi> menuItems = mb.getMenuByPage(CUSTOMER_PAGE);        
+                            request.setAttribute(MENU_ITEMS, menuItems);
                            
                             request.getRequestDispatcher(CUSTOMER_PAGE).forward(request, response);
                            
@@ -172,15 +183,21 @@ public class Acquista extends HttpServlet {
                         request.setAttribute(VENDOR_ID, v.getUserId());
 
                         }
+                        
+                       List<MenuLi> menuItems = mb.getMenuByPage(BUY_PAGE);        
+                       request.setAttribute(MENU_ITEMS, menuItems);
 
-                        request.getRequestDispatcher(BUY_PAGE).forward(request, response);                  
+                       request.getRequestDispatcher(BUY_PAGE).forward(request, response);                  
 
 
                      }
 
                    }
+                       
+                    List<MenuLi> menuItems = mb.getMenuByPage(CUSTOMER_PAGE);        
+                    request.setAttribute(MENU_ITEMS, menuItems);
 
-                     request.getRequestDispatcher(CUSTOMER_PAGE).forward(request, response);
+                    request.getRequestDispatcher(CUSTOMER_PAGE).forward(request, response);
                  }
 
                }               
@@ -191,6 +208,8 @@ public class Acquista extends HttpServlet {
         
            
         }
+               List<MenuLi> menuItems = mb.getMenuByPage(LOGIN_PAGE);        
+               request.setAttribute(MENU_ITEMS, menuItems);
          
                request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
        

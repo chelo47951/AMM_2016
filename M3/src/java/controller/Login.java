@@ -30,6 +30,8 @@ import model.user.Vendor;
 
 // Le costanti utilizzate nel codice
 import static Util.Constant.*;
+import Util.MenuBuilder;
+import Util.MenuLi;
 import model.factory.sale.ObjectSaleFactoryBuilder;
 import model.factory.user.UserFactoryBuilder;
 
@@ -54,7 +56,9 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-      
+        
+        MenuBuilder mb = new MenuBuilder();        
+             
         HttpSession session = request.getSession(true);
         
         
@@ -90,6 +94,9 @@ public class Login extends HttpServlet {
                             
                             request.setAttribute(SELLING_ITEMS, items);
                             
+                            List<MenuLi> menuItems = mb.getMenuByPage(CUSTOMER_PAGE);        
+                            request.setAttribute(MENU_ITEMS, menuItems);
+                            
                             request.getRequestDispatcher(CUSTOMER_PAGE).forward(request, response);
                         }
                         else if ( user instanceof Vendor )
@@ -97,6 +104,9 @@ public class Login extends HttpServlet {
                             session.setAttribute(IS_VENDOR, true);
                             request.setAttribute(VENDOR, user);
                             session.removeAttribute(IS_CUSTOMER);
+                            
+                            List<MenuLi> menuItems = mb.getMenuByPage(VENDOR_PAGE);        
+                            request.setAttribute(MENU_ITEMS, menuItems);
                             
                             request.getRequestDispatcher(VENDOR_PAGE).forward(request, response);
                         }
@@ -108,6 +118,8 @@ public class Login extends HttpServlet {
                 
         }
         
+        List<MenuLi> menuItems = mb.getMenuByPage(LOGIN_PAGE);        
+        request.setAttribute(MENU_ITEMS, menuItems);
         
         request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
       

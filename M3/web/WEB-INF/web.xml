@@ -10,7 +10,7 @@
         </session-timeout>
     </session-config>
      <welcome-file-list>
-        <welcome-file>jsp/descrizione.jsp</welcome-file>
+        <welcome-file>descrizione.html</welcome-file>
     </welcome-file-list>
     <context-param>
         <param-name>APP_MODE</param-name>

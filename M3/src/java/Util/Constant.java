@@ -34,6 +34,12 @@ public class Constant
       public final static String VENDOR_PAGE = BASE_PATH   +   "venditore.jsp";
       public final static String BUY_PAGE = BASE_PATH   +   "acquista.jsp";
       public final static String BUY_COMMIT = BASE_PATH   +   "conferma_acquisto.jsp";
+      
+      
+      // Per generazione dei menu
+      public final static String MENU_ITEMS = "menuItems";
+      
+      
     
       
       //Session attributes

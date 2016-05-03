@@ -22,7 +22,10 @@ import model.factory.user.UserFactory;
 import model.factory.user.UserFactoryBuilder;
 
 import static Util.Constant.*;
+import Util.MenuBuilder;
+import Util.MenuLi;
 import Util.Util;
+import java.util.List;
 import model.sale.ObjectSale;
 import model.user.Vendor;
 
@@ -46,6 +49,9 @@ public class Venditore extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
+        
+       MenuBuilder mb = new MenuBuilder();        
+      
         
       HttpSession session = request.getSession(false);
        
@@ -112,11 +118,15 @@ public class Venditore extends HttpServlet {
            }
            
       
-        
+            List<MenuLi> menuItems = mb.getMenuByPage(VENDOR_PAGE);        
+            request.setAttribute(MENU_ITEMS, menuItems);
             request.getRequestDispatcher(VENDOR_PAGE).forward(request, response);
        }
        
           // Se non esiste neanche la sessione rimandiamo al login
+          
+        List<MenuLi> menuItems = mb.getMenuByPage(LOGIN_PAGE);        
+        request.setAttribute(MENU_ITEMS, menuItems);
         request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
        
     }

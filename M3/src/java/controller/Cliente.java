@@ -28,6 +28,8 @@ import javax.servlet.http.HttpSession;
 
 // Le costanti utilizzate nel codice
 import static Util.Constant.*;
+import Util.MenuBuilder;
+import Util.MenuLi;
 
 import model.factory.sale.ObjectSaleFactoryBuilder;
 
@@ -51,6 +53,8 @@ public class Cliente extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
+        
+       MenuBuilder mb = new MenuBuilder(); 
       
        HttpSession session = request.getSession(false);
        
@@ -87,10 +91,18 @@ public class Cliente extends HttpServlet {
            }
         }
         
+         List<MenuLi> menuItems = mb.getMenuByPage(CUSTOMER_PAGE);        
+         request.setAttribute(MENU_ITEMS, menuItems);
+        
          request.getRequestDispatcher(CUSTOMER_PAGE).forward(request, response);
        }
        
+       
          // Se non esiste neanche la sessione rimandiamo al login
+         
+         List<MenuLi> menuItems = mb.getMenuByPage(LOGIN_PAGE);        
+         request.setAttribute(MENU_ITEMS, menuItems);
+               
         request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
        
         
