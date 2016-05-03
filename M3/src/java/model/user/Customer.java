@@ -30,7 +30,7 @@ public class Customer extends User
         if(num > 0 &&  pay(item.getPrice()))
         {            
             item.setNumOfItems(--num);
-            cart.removeFromCart(item);
+            getCart().removeFromCart(item);
             return true;
         }
         else
@@ -59,19 +59,26 @@ public class Customer extends User
 
     public void addToCart(ObjectSale objectSale)
     {
-       cart.addToCart(objectSale);
+        getCart().addToCart(objectSale);
     }
     
      public void removeFromPurchasingItems(ObjectSale objectSale)
     {
       
-       cart.removeFromCart(objectSale);
+        getCart().removeFromCart(objectSale);
     }
      
      public void checkoutItem(ObjectSale objectSale)
      {
           removeFromPurchasingItems(objectSale);
      }
+
+    /**
+     * @return the cart
+     */
+    public ShoppingCart getCart() {
+        return cart;
+    }
     
     
 }

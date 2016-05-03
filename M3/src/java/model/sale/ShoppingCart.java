@@ -21,14 +21,14 @@ public class ShoppingCart
     
      private int ShoppingCartId;
      
-     protected List<ObjectSale> items;    
-     protected int numOfItems;
+     private List<ObjectSale> items;    
+     private int numOfItems;
      
      
      public ShoppingCart()
      {
           Random rn = new Random();                       
-          this.ShoppingCartId =  rn.nextInt() % Constant.MAX_ID; 
+          this.ShoppingCartId = Math.abs(  rn.nextInt() % Constant.MAX_ID  ); 
          
          numOfItems = 0;
          items =  new ArrayList<>();
@@ -36,21 +36,37 @@ public class ShoppingCart
      
      public void addToCart(ObjectSale item)
      {
-         items.add(item);
+         getItems().add(item);
          numOfItems++;
      }
      
       public void removeFromCart(ObjectSale item)
      {
-         items.remove(item);
+         getItems().remove(item);
          numOfItems--;
      }
       
        public void clearCart()
      {
-         items.clear();
+         getItems().clear();
          numOfItems = 0;
      }
+
+    /**
+     * @return the numOfItems
+     */
+    public int getNumOfItems() {
+        return getItems().size();
+    }
+
+    /**
+     * @return the items
+     */
+    public List<ObjectSale> getItems() {
+        return items;
+    }
+
+   
      
      
    

@@ -147,15 +147,14 @@ public class Acquista extends HttpServlet {
                    }                  
                   else
                   {
-                      //Riepilogo oggetto
+                      //Riepilogo oggetto e aggiunta carrello
                    
                    
                    //Assumo che username sia impostato
                    String username = (String)session.getAttribute(USERNAME);
                  
-                   //Nell'applicazione assumo che il campo username abbia vincolo UNIQUE
-                   // inoltre assumo dal momento che isCustomer è true, che l'utente nella sessione sia un customer
-                   Customer c = usrFactory.getCustomerByUsername(username) ;
+                 
+                   Customer c = (Customer) session.getAttribute(CUSTOMER) ;
 
                    //Prelevo dalla richiesta l'id dell'oggetto da acquistare
                    Integer objId = Util.tryParseInt(request.getParameter(OBJECT_ID));
@@ -175,6 +174,9 @@ public class Acquista extends HttpServlet {
                         {
                         //aggiungiamo alla richiesta l'oggetto                 
                         request.setAttribute(SELECTED_OBJECT,obj);
+                        
+                        //Aggiungiamo al carrello
+                        c.addToCart(obj);
 
                         //Otteniamo l'id del venditore
                         Vendor v = obj.getVendor();

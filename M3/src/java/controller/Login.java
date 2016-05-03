@@ -86,8 +86,9 @@ public class Login extends HttpServlet {
                         if( user instanceof Customer )
                         {                            
                             session.setAttribute(IS_CUSTOMER, true);
-                            request.setAttribute(CUSTOMER, user);
+                            session.setAttribute(CUSTOMER, user);
                             session.removeAttribute(IS_VENDOR);
+                            session.removeAttribute(VENDOR);
                             
                             ObjectSaleFactory factory = ObjectSaleFactoryBuilder.getFactory(appMode);       
                             List<ObjectSale> items = factory.getSellingObjectList(); 
@@ -102,8 +103,9 @@ public class Login extends HttpServlet {
                         else if ( user instanceof Vendor )
                         {
                             session.setAttribute(IS_VENDOR, true);
-                            request.setAttribute(VENDOR, user);
+                            session.setAttribute(VENDOR, user);
                             session.removeAttribute(IS_CUSTOMER);
+                            session.removeAttribute(CUSTOMER);
                             
                             List<MenuLi> menuItems = mb.getMenuByPage(VENDOR_PAGE);        
                             request.setAttribute(MENU_ITEMS, menuItems);

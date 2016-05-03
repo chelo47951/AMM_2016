@@ -28,6 +28,29 @@
      
         
         <section>
+            <c:if test="${IsCustomer != null}">
+                <div class="cart-box">
+                    <p>User: <strong>${Username}</strong></p>
+                    
+                    <a href="carrello.html">
+                    <img src="img/cart-small.png" alt="carrello-right" width="42px" height="42px">
+                    </a>
+                    
+                    <c:if test="${Customer.cart.numOfItems > 0}">
+                    <p class="text-in-circle-full">
+                        ${Customer.cart.numOfItems}                   
+                    </p>
+                    </c:if>
+                    
+                    <c:if test="${Customer.cart.numOfItems == 0}">
+                        <p class="text-in-circle-empty">
+                            ${Customer.cart.numOfItems}                   
+                        </p>
+                        
+                    </c:if>
+                    
+                </div>
+            </c:if>
             <h2>Pagina Cliente</h2>
             
      <c:choose>            

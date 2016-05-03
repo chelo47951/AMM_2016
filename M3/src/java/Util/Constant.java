@@ -33,6 +33,7 @@ public class Constant
       public final static String CUSTOMER_PAGE = BASE_PATH   +   "cliente.jsp";
       public final static String VENDOR_PAGE = BASE_PATH   +   "venditore.jsp";
       public final static String BUY_PAGE = BASE_PATH   +   "acquista.jsp";
+      public final static String CART_PAGE = BASE_PATH   +   "carrello.jsp";
       public final static String BUY_COMMIT = BASE_PATH   +   "conferma_acquisto.jsp";
       
       

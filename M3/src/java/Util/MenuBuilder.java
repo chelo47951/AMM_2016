@@ -76,6 +76,17 @@ public class MenuBuilder
            pageMenu.put(BUY_PAGE,
                        buyItems          
                      ); 
+           
+           
+              List<MenuLi> cartItems = new ArrayList<MenuLi>();
+   
+         cartItems.add(new MenuLi("descrizione.html","Descrizione"));
+          cartItems.add(new MenuLi("login.html","Login") );
+          
+           pageMenu.put(CART_PAGE,
+                       cartItems          
+                     ); 
+            
             
           
         

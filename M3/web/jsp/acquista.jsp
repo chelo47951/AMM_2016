@@ -107,7 +107,9 @@
                             </div>
                        </form>
 
-           </div>
+                    </div>
+                            <br>
+                              <p>Torna alla tua<a href="cliente.html"> pagina</a></p>
                             
        </c:otherwise>
      </c:choose>
