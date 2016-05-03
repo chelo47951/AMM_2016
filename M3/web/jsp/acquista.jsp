@@ -79,7 +79,7 @@
                         </tr>
                         
                         <tr>
-                            <td>Saldo</td>
+                            <td><strong>Saldo</strong></td>
                             
                             <td>+${CurrentBalance}€</td>
                         </tr>

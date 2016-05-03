@@ -49,15 +49,26 @@
                   </div>
                </c:when>
 
-               <c:otherwise>                   
+               <c:otherwise> 
+                   
+            <c:if test="${ObjectAdded != null}">
+                <p>${ObjectAdded}</p>
+                <p>Potete inserire un nuovo oggetto:</p>
+            </c:if>
                
                  <div id="main-form">
-                   <form method="get">
+                   <form method="get" action="venditore.html">
 
                     <div class="form-row clearfix">
                        <label for="nomeArticolo">Nome Articolo:</label>
                        <input type="text" id="nomeArticolo" name="nomeArticolo">
                     </div>
+                   
+                     <div class="form-row clearfix">
+                       <label for="categoria">Categoria:</label>
+                       <input type="text" id="categoria" name="categoria">
+                    </div>
+                       
                    <div class="form-row clearfix">  
                        <label for="imgurl">Url Immagine:</label>
                        <input type="url" id="imgurl" name="imgurl">
@@ -66,7 +77,7 @@
 
                   <div class="form-row clearfix">
                        <label for="descArticolo">Descrizione:</label>
-                       <textarea id="descArticolo" name="descArticolo" rows="5" cols="20">Inserire una descrizione</textarea>
+                       <textarea id="descArticolo" name="descArticolo" rows="5" cols="20" placeholder="Inserire una descrizione"></textarea>
 
                   </div>
                   <div class="form-row clearfix">
@@ -82,7 +93,7 @@
                  </div>
 
                   <div class="form-row clearfix">
-                       <input type="submit" value="Invia">
+                       <input type="submit" name="Submit" value="Invia">
 
                  </div>
 
@@ -93,6 +104,8 @@
                  </c:otherwise>
                 
               </c:choose> 
+            
+
             
         </section>
        
