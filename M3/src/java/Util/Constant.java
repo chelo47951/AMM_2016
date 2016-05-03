@@ -74,11 +74,14 @@ public class Constant
       
       public final static String TRANSACTION_COMMITED_MESSAGE = "TransactionCommittedMessage";
       public final static String TRANSACTION_ROLLEDBACK_MESSAGE = "TransactionRolledBackMessage";
+      public final static String OBJECT_ADDED_MESSAGE = "ObjectAdded";
    
     
       // Messages
        public final static String LOGIN_ERROR_MESSAGE_TEXT = "Non è stato possibile autenticare l'utente. Verificare username e password";
        public final static String UNAVAILABLE_OBJECT_MESSAGE_TEXT = "Siamo spiacenti, ma l'oggetto scelto non è più disponibile";
+       public final static String OBJECT_ADDED_MESSAGE_TEXT = "L'oggetto è stato aggiunto correttamente a quelli in vendita.";
+     
        
        public final static String TRANSACTION_COMMITED_MESSAGE_TEXT = "La transazione si è conclusa con successo.";
        public final static String TRANSACTION_ROLLEDBACK_MESSAGE_TEXT = "La transazione è stata annullata per il seguente motivo: ";

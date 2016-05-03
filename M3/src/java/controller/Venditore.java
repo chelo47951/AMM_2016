@@ -16,6 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 import static Util.Constant.*;
 import java.util.Enumeration;
 import javax.servlet.http.HttpSession;
+import model.factory.sale.ObjectSaleFactory;
+import model.factory.sale.ObjectSaleFactoryBuilder;
+import model.factory.user.UserFactory;
+import model.factory.user.UserFactoryBuilder;
+
+import static Util.Constant.*;
+import Util.Util;
+import model.sale.ObjectSale;
+import model.user.Vendor;
+
 
 /**
  *
@@ -41,6 +51,10 @@ public class Venditore extends HttpServlet {
        
        if(session != null)
        {
+            String appMode = session.getServletContext().getInitParameter(APP_MODE);
+            
+            UserFactory usrFactory = UserFactoryBuilder.getFactory(appMode);
+            ObjectSaleFactory objFactory = ObjectSaleFactoryBuilder.getFactory(appMode);
            
             Enumeration<String> attributes = session.getAttributeNames();
             
@@ -61,8 +75,38 @@ public class Venditore extends HttpServlet {
            {
                Boolean isVendor = (Boolean)session.getAttribute(IS_VENDOR);
                if(isVendor != null && isVendor == true)
-              {                
-                //TODO
+              {  
+                  String username = (String)session.getAttribute(USERNAME);
+                  Vendor vendor = usrFactory.getVendorByUsername(username);
+                
+                   //La servlet gestisce l'aggiunta di un nuovo oggetto
+                   if( request.getParameter("Submit") != null )
+                   {
+                       String name = request.getParameter("nomeArticolo");
+                       String desc = request.getParameter("descArticolo");
+                       String category = request.getParameter("categoria");
+                       Integer num = Util.tryParseInt(request.getParameter("numpezzi"));
+                       Double price = Util.tryParseDouble(request.getParameter("prezzo"));
+                       String imgUrl = request.getParameter("imgurl");
+                       
+                       
+                       if(  name != null &&
+                            desc != null &&   //potrebbe essere opzionale
+                            category != null &&
+                            num != null &&
+                            price != null &&
+                            imgUrl != null &&
+                            vendor != null
+                           )
+                       {
+                           ObjectSale objToAdd = new ObjectSale(name, desc, category, price, num, imgUrl, vendor);
+                           objFactory.getSellingObjectList().add(objToAdd);
+                           
+                           request.setAttribute(OBJECT_ADDED_MESSAGE, OBJECT_ADDED_MESSAGE_TEXT);
+                       
+                       }
+                       
+                   }
 
               }
            }

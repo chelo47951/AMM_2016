@@ -58,11 +58,7 @@ public class Acquista extends HttpServlet {
         
         
         
-        HttpSession session = request.getSession(false);
-        
-        
-        
-        
+        HttpSession session = request.getSession(false);        
        
          if(session != null)
         {
@@ -95,9 +91,9 @@ public class Acquista extends HttpServlet {
                    if( request.getParameter("Submit") != null )
                    {
                        //Conferma acquisto
-                       Integer CustomerId =  Util.tryParse(request.getParameter(CUSTOMER_ID));
-                       Integer VendorId =    Util.tryParse(request.getParameter(VENDOR_ID));
-                       Integer ObjectId =    Util.tryParse(request.getParameter(OBJECT_ID));
+                       Integer CustomerId =  Util.tryParseInt(request.getParameter(CUSTOMER_ID));
+                       Integer VendorId =    Util.tryParseInt(request.getParameter(VENDOR_ID));
+                       Integer ObjectId =   Util.tryParseInt(request.getParameter(OBJECT_ID));
                        
                        if( CustomerId!= null && CustomerId > 0 &&
                            VendorId!= null && VendorId > 0 &&  
@@ -151,7 +147,7 @@ public class Acquista extends HttpServlet {
                    Customer c = usrFactory.getCustomerByUsername(username) ;
 
                    //Prelevo dalla richiesta l'id dell'oggetto da acquistare
-                   Integer objId = Util.tryParse(request.getParameter(OBJECT_ID));
+                   Integer objId = Util.tryParseInt(request.getParameter(OBJECT_ID));
 
 
                    if(objId != null && c != null)
