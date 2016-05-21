@@ -58,6 +58,14 @@ public abstract class UserFactory
     
     public abstract boolean verifyPassword(String username,  String password);
     
+    public boolean verifyPassword(User usr,  String password) 
+    {
+        if(usr.getPassword().equals(password))
+            return true;
+        else
+            return false;
+    }
+    
    
     
 }

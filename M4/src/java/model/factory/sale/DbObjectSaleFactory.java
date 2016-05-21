@@ -5,8 +5,30 @@
  */
 package model.factory.sale;
 
+import Util.Constant;
+import static Util.Constant.DB_FACTORY_MODE;
+import static Util.Constant.DB_PASSWORD;
+import static Util.Constant.DB_USERNAME;
+import static Util.Constant.IS_CUSTOMER;
+import static Util.Constant.IS_VENDOR;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.factory.user.DbUserFactory;
+import model.factory.user.UserFactory;
+import model.factory.user.UserFactoryBuilder;
+import model.payment.Account;
 import model.sale.ObjectSale;
+import model.user.Customer;
+import model.user.User;
+import model.user.Vendor;
 
 /**
  *
@@ -15,6 +37,33 @@ import model.sale.ObjectSale;
 public class DbObjectSaleFactory extends ObjectSaleFactory 
 {
    private static DbObjectSaleFactory instance;
+    private Connection conn;
+     
+   
+     public void connect() 
+     {
+         try 
+         {
+             conn = DriverManager.getConnection(connectionString, DB_USERNAME, DB_PASSWORD);
+         } 
+         catch (SQLException ex)
+         {
+             Logger.getLogger(DbUserFactory.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         
+     }
+     
+      public void disconnect()
+     {
+         try 
+         {
+             conn.close();
+         } 
+         catch (SQLException ex) 
+         {
+             Logger.getLogger(DbUserFactory.class.getName()).log(Level.SEVERE, null, ex);
+         }
+     }
    
 
     
@@ -42,8 +91,54 @@ public class DbObjectSaleFactory extends ObjectSaleFactory
     }
 
     @Override
-    public List<ObjectSale> getSellingObjectList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<ObjectSale> getSellingObjectList()
+    {
+       
+         connect();
+         items = new ArrayList<>();
+         
+         try 
+         {
+             String sql = "select * from OBJECT_SALES ";
+                    
+             
+             Statement stmt = conn.createStatement();
+             ResultSet set = stmt.executeQuery(sql);
+             
+             while (set.next()) 
+             {
+                  UserFactory userfactory =  UserFactoryBuilder.getFactory(DB_FACTORY_MODE);
+                  Vendor vendor = userfactory.getVendorById(set.getInt("VENDOR_ID"));
+                 
+                   ObjectSale o = new ObjectSale(
+                           set.getInt("OBJECT_SALE_ID"),
+                           set.getString("OBJECT_NAME"),
+                           set.getString("DESCRIPTION"), 
+                           set.getString("CATEGORY"),
+                           set.getDouble("PRICE"),                           
+                           set.getInt("NUM_OF_ITEMS"),
+                           set.getString("IMG_URL"), 
+                           vendor
+                   ); 
+                   
+                   items.add(o);
+                     
+             }
+             
+             stmt.close();
+             disconnect();
+             return items;    
+                
+         }
+         catch (SQLException ex)
+         {
+             Logger.getLogger(DbUserFactory.class.getName()).log(Level.SEVERE, null, ex);
+             disconnect();
+             return null;
+            
+         }
+         
+      
     }
 
     @Override

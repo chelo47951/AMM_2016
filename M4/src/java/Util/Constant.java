@@ -14,6 +14,7 @@ public class Constant
 {
     public final static int MAX_ID = 1024;
     
+    // Modalita app: test o db
     public final static String APP_MODE = "APP_MODE";
     public final static String TEST_FACTORY_MODE = "TestFactory";
     public final static String DB_FACTORY_MODE = "DbFactory";
@@ -23,6 +24,11 @@ public class Constant
     public final static  String JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     public final static  String DB_CLEAN_PATH = "../../web/WEB-INF/db/ammdb";
     public final static  String DB_BUILD_PATH = "WEB-INF/db/ammdb";
+    
+    // Accesso al db
+    public static final String DB_USERNAME = "robo";
+    public static final String DB_PASSWORD = "robo";
+    
     
     
     // Categorie: eventualmente da evolvere in un enum
@@ -51,8 +57,8 @@ public class Constant
       
       //Session attributes
       public final static String IS_LOGGED_IN = "IsLoggedIn";
-      public final static String IS_CUSTOMER = "IsCustomer";
-      public final static String IS_VENDOR = "IsVendor";
+      public final static String IS_CUSTOMER = "CUSTOMER";
+      public final static String IS_VENDOR = "VENDOR";
       public final static String CUSTOMER = "Customer";
       public final static String VENDOR = "Vendor";
      

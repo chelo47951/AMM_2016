@@ -52,7 +52,8 @@ public class Login extends HttpServlet {
     {
        
         
-        String dbConnectionString =  JDBC_DERBY + this.getServletContext().getRealPath("/") + DB_BUILD_PATH;
+       // String dbConnectionString =  JDBC_DERBY + this.getServletContext().getRealPath("/") + DB_BUILD_PATH;
+        String dbConnectionString =  JDBC_DERBY +"//localhost:1527/ammdb";
         try
         {
             Class.forName(JDBC_DRIVER);
@@ -61,12 +62,18 @@ public class Login extends HttpServlet {
         {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        // Utilizziamo un parametro per discriminare la modalità test hard-coded da quella con il db
+        String appMode = getServletContext().getInitParameter(APP_MODE);
        
+        if(appMode.equals(DB_FACTORY_MODE)) 
+        {
          ObjectSaleFactory objFactory =  ObjectSaleFactoryBuilder.getFactory(DB_FACTORY_MODE);
          objFactory.setConnectionString(dbConnectionString);
          
          UserFactory usrfactory =  UserFactoryBuilder.getFactory(DB_FACTORY_MODE);
          usrfactory.setConnectionString(dbConnectionString);
+        }
          
     } 
     
@@ -106,7 +113,7 @@ public class Login extends HttpServlet {
                 {            
                     User user = userfactory.getUserByUsername(username);
 
-                    if(userfactory.verifyPassword(username, pwd))
+                    if(userfactory.verifyPassword(user, pwd))
                     {
                         //Login avvenuto con successo
                         session.setAttribute(IS_LOGGED_IN, true);

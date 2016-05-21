@@ -52,6 +52,29 @@ public class ObjectSale
               this.imgUrl  = imgUrl;    
               this.vendor = vendor;
     }
+     
+        public ObjectSale(
+              int id,
+              String name,
+              String description,
+              String category,
+              double price,
+              int numOfItems,
+              String imgUrl,
+              Vendor vendor
+                        )
+    {        
+        
+             
+              this.objectSaleId = id;
+              this.name = name;
+              this.description =  description;
+              this.category = category;
+              this.price = price;
+              this.numOfItems = numOfItems;
+              this.imgUrl  = imgUrl;    
+              this.vendor = vendor;
+    }
 
     /**
      * @return the name

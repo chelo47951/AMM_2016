@@ -14,7 +14,10 @@
     </welcome-file-list>
     <context-param>
         <param-name>APP_MODE</param-name>
-        <param-value>TestFactory</param-value>
+         <param-value>DbFactory</param-value>
+       <!-- In assenza di db usare:     -->
+       <!--  <param-value>TestFactory</param-value>  -->
+       
     </context-param>
     
 </web-app>
