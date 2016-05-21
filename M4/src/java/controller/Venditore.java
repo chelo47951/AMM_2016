@@ -106,7 +106,7 @@ public class Venditore extends HttpServlet {
                            )
                        {
                            ObjectSale objToAdd = new ObjectSale(name, desc, category, price, num, imgUrl, vendor);
-                           objFactory.getSellingObjectList().add(objToAdd);
+                           objFactory.addToSellingObjectList(objToAdd);
                            
                            request.setAttribute(OBJECT_ADDED_MESSAGE, OBJECT_ADDED_MESSAGE_TEXT);
                        

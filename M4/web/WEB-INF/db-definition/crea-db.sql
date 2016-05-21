@@ -89,10 +89,10 @@ DML: Caricamento dei dati
 
 /* Utenti */
 INSERT INTO USERS (USER_ID, FNAME, LNAME, ADDRESS, USERNAME, PASSWORD, USER_TYPE)
-VALUES (default, 'Mario','Rossi','Via del Corso 11, Roma','rossim60','1960','CUSTOMER'),
- (default, 'Giuseppe','Verdi','Via della Spiga 23, Milano','verdig55','1955','VENDOR'),
- (default, 'Giacomo','Leopardi','Via Aldo Moro 35, Recanati','leopardig49','1949','CUSTOMER'),
- (default, 'Alessandro','Manzoni','Via Ripamonti 5, Milano','manzonia67','1967','VENDOR');
+VALUES (default, 'Mario','Rossi','Via del Corso 11, Roma','rossim60','1960','IsCustomer'),
+ (default, 'Giuseppe','Verdi','Via della Spiga 23, Milano','verdig55','1955','IsVendor'),
+ (default, 'Giacomo','Leopardi','Via Aldo Moro 35, Recanati','leopardig49','1949','IsCustomer'),
+ (default, 'Alessandro','Manzoni','Via Ripamonti 5, Milano','manzonia67','1967','IsVendor');
 
 
 /* Conti correnti */

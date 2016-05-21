@@ -86,8 +86,55 @@ public class DbObjectSaleFactory extends ObjectSaleFactory
     
 
     @Override
-    public ObjectSale getObjectSaleById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ObjectSale getObjectSaleById(int id) 
+    {
+        ObjectSale o = null;
+        
+         connect();
+         try 
+         {
+             String sql = "select * from OBJECT_SALES "
+                     + "where OBJECT_SALE_ID = ?";
+             
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             
+             stmt.setInt(1, id);
+             
+             ResultSet set = stmt.executeQuery();
+             
+             while (set.next()) 
+             {
+                 UserFactory userfactory =  UserFactoryBuilder.getFactory(DB_FACTORY_MODE);
+                 Vendor vendor = userfactory.getVendorById(set.getInt("VENDOR_ID"));
+                 
+                 o = new ObjectSale(
+                           set.getInt("OBJECT_SALE_ID"),
+                           set.getString("OBJECT_NAME"),
+                           set.getString("DESCRIPTION"), 
+                           set.getString("CATEGORY"),
+                           set.getDouble("PRICE"),                           
+                           set.getInt("NUM_OF_ITEMS"),
+                           set.getString("IMG_URL"), 
+                           vendor
+                   ); 
+                                   
+                 
+                
+             }
+             
+              stmt.close();
+              disconnect();
+              return o;
+             
+         }
+         catch (SQLException ex)
+         {
+             Logger.getLogger(DbUserFactory.class.getName()).log(Level.SEVERE, null, ex);
+            
+             disconnect();
+             return null;
+            
+         }
     }
 
     @Override
@@ -149,6 +196,44 @@ public class DbObjectSaleFactory extends ObjectSaleFactory
     @Override
     public List<ObjectSale> getSellingObjectListByVendorId(String category) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ObjectSale addToSellingObjectList(ObjectSale objSale) 
+    {
+       
+        
+        
+        try
+        {
+          connect();
+            
+           String sql = "INSERT INTO OBJECT_SALES (OBJECT_SALE_ID, OBJECT_NAME, DESCRIPTION, CATEGORY, PRICE,NUM_OF_ITEMS,IMG_URL,VENDOR_ID) " +
+" VALUES (default,?,?,?,?,?,?,?)";
+             
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             
+             stmt.setString(1, objSale.getName());
+             stmt.setString(2, objSale.getDescription());
+             stmt.setString(3, objSale.getCategory());
+             stmt.setDouble(4, objSale.getPrice());
+             stmt.setInt(5, objSale.getNumOfItems());
+             stmt.setString(6, objSale.getImgUrl());
+             stmt.setInt(7, objSale.getVendor().getUserId());
+             
+             
+             int numOrRows = stmt.executeUpdate();
+            
+          disconnect();        
+          return objSale;
+        }
+        catch(SQLException ex)
+        {
+             Logger.getLogger(DbUserFactory.class.getName()).log(Level.SEVERE, null, ex);
+             disconnect();
+             return null;
+        }     
+       
     }
     
 }

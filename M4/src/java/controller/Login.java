@@ -53,7 +53,7 @@ public class Login extends HttpServlet {
        
         
        // String dbConnectionString =  JDBC_DERBY + this.getServletContext().getRealPath("/") + DB_BUILD_PATH;
-        String dbConnectionString =  JDBC_DERBY +"//localhost:1527/ammdb";
+        String dbConnectionString =  JDBC_DERBY + DB_URL;
         try
         {
             Class.forName(JDBC_DRIVER);

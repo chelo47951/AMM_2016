@@ -95,6 +95,7 @@ public class DbUserFactory extends UserFactory
                      c.setUserId(set.getInt("USER_ID"));
                      c.setFname(set.getString("FNAME"));
                      c.setLname(set.getString("LNAME"));
+                     c.setUsername(username);
                      c.setPassword(set.getString("PASSWORD"));
                      c.setAddress(set.getString("ADDRESS"));
                      
@@ -113,6 +114,7 @@ public class DbUserFactory extends UserFactory
                      v.setUserId(set.getInt("USER_ID"));
                      v.setFname(set.getString("FNAME"));
                      v.setLname(set.getString("LNAME"));
+                     v.setUsername(username);
                      v.setPassword(set.getString("PASSWORD"));
                      v.setAddress(set.getString("ADDRESS"));
                      
@@ -173,13 +175,122 @@ public class DbUserFactory extends UserFactory
     }
 
     @Override
-    public Vendor getVendorByUsername(String username) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Vendor getVendorByUsername(String username) 
+    {
+        Vendor v = null;
+        
+         connect();
+         try 
+         {
+             String sql = "select * from USERS "
+                     + "where USERNAME = ?";
+             
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             
+             stmt.setString(1, username);
+             
+             ResultSet set = stmt.executeQuery();
+             
+             while (set.next()) 
+             {
+                 String userType = set.getString("USER_TYPE");
+ 
+                 if(userType.equals(IS_VENDOR))
+                 {
+                     
+                     v = new Vendor();
+                     
+                     v.setUserId(set.getInt("USER_ID"));
+                     v.setFname(set.getString("FNAME"));
+                     v.setLname(set.getString("LNAME"));
+                     v.setUsername(username);
+                     v.setPassword(set.getString("PASSWORD"));
+                     v.setAddress(set.getString("ADDRESS"));
+                     
+                     //Occorre l'account 
+                     Account a = getAccountByUserId(v);
+                     
+                     v.setAccount(a);
+                     
+                     
+                 }
+                 
+                 
+                
+             }
+             
+              stmt.close();
+              disconnect();
+              return v;
+             
+         }
+         catch (SQLException ex)
+         {
+             Logger.getLogger(DbUserFactory.class.getName()).log(Level.SEVERE, null, ex);
+            
+             disconnect();
+             return null;
+            
+         }
     }
 
     @Override
-    public Customer getCustomerById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Customer getCustomerById(int id)
+    {
+         Customer c = null;
+        
+         connect();
+         try 
+         {
+             String sql = "select * from USERS "
+                     + "where USER_ID = ?";
+             
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             
+             stmt.setInt(1, id);
+             
+             ResultSet set = stmt.executeQuery();
+             
+             while (set.next()) 
+             {
+                 String userType = set.getString("USER_TYPE");
+ 
+                 if(userType.equals(IS_CUSTOMER))
+                 {
+                     
+                     c = new Customer();
+                     
+                     c.setUserId(set.getInt("USER_ID"));
+                     c.setFname(set.getString("FNAME"));
+                     c.setLname(set.getString("LNAME"));
+                     c.setPassword(set.getString("PASSWORD"));
+                     c.setAddress(set.getString("ADDRESS"));
+                     
+                     //Occorre l'account 
+                     Account a = getAccountByUserId(c);
+                     
+                     c.setAccount(a);
+                     
+                     
+                 }
+                 
+                 
+                
+             }
+             
+              stmt.close();
+              disconnect();
+              return c;
+             
+         }
+         catch (SQLException ex)
+         {
+             Logger.getLogger(DbUserFactory.class.getName()).log(Level.SEVERE, null, ex);
+            
+             disconnect();
+             return null;
+            
+         }
     }
 
     @Override

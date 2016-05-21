@@ -165,6 +165,14 @@ public class TestObjectSaleFactory extends ObjectSaleFactory
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public ObjectSale addToSellingObjectList(ObjectSale objSale) 
+    {
+        items.add(objSale);
+        
+        return objSale;
+    }
     
     
 }

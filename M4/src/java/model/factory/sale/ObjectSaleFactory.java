@@ -31,5 +31,6 @@ public abstract class ObjectSaleFactory
     public abstract List<ObjectSale> getSellingObjectList();
     public abstract List<ObjectSale> getSellingObjectListByCategory(String category);
     public abstract List<ObjectSale> getSellingObjectListByVendorId(String category);
+    public abstract ObjectSale addToSellingObjectList(ObjectSale objSale);
     
 }
