@@ -371,9 +371,10 @@ public class DbUserFactory extends UserFactory
              
              while (set.next()) 
              {
-                 
+                     int id = set.getInt("ACCOUNT_ID");
                      double initialAmount = set.getDouble("BALANCE");
-                     a = new Account(usr,initialAmount);
+                    
+                     a = new Account(id,usr,initialAmount);
                      
               }
                 
@@ -392,6 +393,45 @@ public class DbUserFactory extends UserFactory
         
         disconnect();
         return a;
+    }
+
+    @Override
+    public boolean updateAccount(Account a, double amount, boolean debit) 
+    {
+         try {
+             boolean retVal = false;
+             double finalAmount =  a.getBalance();
+             int id = a.getAccountId();
+             
+             connect();
+             
+                      
+             
+             String sql = "UPDATE ACCOUNTS " +
+                     " SET BALANCE = ? " +
+                     " WHERE ACCOUNT_ID = ? ";
+             
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             
+             stmt.setDouble(1,finalAmount);
+             stmt.setInt(2, id);
+             
+             int numOfRows = stmt.executeUpdate();
+             
+             if(numOfRows != 1)
+                  retVal = false;
+             else
+                 retVal = true;
+             
+             disconnect();
+             return retVal;
+         } 
+         catch (SQLException ex) 
+         {
+             Logger.getLogger(DbUserFactory.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
+         }
+        
     }
 
  

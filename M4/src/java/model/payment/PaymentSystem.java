@@ -30,12 +30,12 @@ public class PaymentSystem
     }
     */
     
-    public static Transaction buy(ObjectSale objectSale, Customer customer)
+    public static Transaction buy(ObjectSale objectSale, Customer customer, String appMode)
     {
         boolean isSuccess = false;
         String msg;
         
-        Transaction t = new Transaction(objectSale, customer);
+        Transaction t = new Transaction(objectSale, customer,appMode);
         isSuccess = t.commit();
     
         

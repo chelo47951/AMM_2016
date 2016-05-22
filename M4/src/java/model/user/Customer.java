@@ -30,6 +30,7 @@ public class Customer extends User
         if(num > 0 &&  pay(item.getPrice()))
         {            
             item.setNumOfItems(--num);
+            //todo: update db item
             getCart().removeFromCart(item);
             return true;
         }

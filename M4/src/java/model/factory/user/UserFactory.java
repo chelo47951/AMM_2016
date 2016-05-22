@@ -6,6 +6,7 @@
 package model.factory.user;
 
 import java.util.List;
+import model.payment.Account;
 import model.user.Customer;
 import model.user.User;
 import model.user.Vendor;
@@ -53,6 +54,9 @@ public abstract class UserFactory
     
    // Ricerca un venditore per username
     public abstract Vendor getVendorById(int id); 
+    
+    
+    public abstract boolean updateAccount(Account a, double amount, boolean debit);
     
     
     

@@ -117,9 +117,9 @@ public class Login extends HttpServlet {
                     {
                         //Login avvenuto con successo
                         session.setAttribute(IS_LOGGED_IN, true);
-                        session.setAttribute(USERNAME, user.getUsername());
-                        
-                        
+                        session.setAttribute(USERNAME, user.getUsername());                      
+                       
+                                                
                         if( user instanceof Customer )
                         {                            
                             session.setAttribute(IS_CUSTOMER, true);

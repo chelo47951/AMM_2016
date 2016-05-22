@@ -173,6 +173,11 @@ public class TestObjectSaleFactory extends ObjectSaleFactory
         
         return objSale;
     }
+
+    @Override
+    public boolean updateSellingObjectList(ObjectSale objSale) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

@@ -111,7 +111,7 @@ public class Acquista extends HttpServlet {
                            if(c != null && v != null && obj != null)
                            {
                                double previousBalance =  c.getAccount().getBalance();
-                               Transaction t = PaymentSystem.buy(obj, c);
+                               Transaction t = PaymentSystem.buy(obj, c,appMode);
                                if(t.isIsSuccess())
                                {
                                    request.setAttribute(TRANSACTION_COMMITED_MESSAGE, t.getMessage());

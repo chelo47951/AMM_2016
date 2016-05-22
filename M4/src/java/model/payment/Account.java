@@ -5,6 +5,8 @@
  */
 package model.payment;
 
+import Util.Constant;
+import java.util.Random;
 import model.user.User;
 
 /**
@@ -14,9 +16,8 @@ import model.user.User;
 public class Account
 {
     
-    
-    private User owner;
-    
+    private int accountId;
+    private User owner;    
     private double balance;
     private boolean active;
     private boolean overdraft;
@@ -25,6 +26,9 @@ public class Account
     {
         this.owner = owner;
         
+        Random rn = new Random(); 
+        
+        accountId =   Math.abs( rn.nextInt() % Constant.MAX_ID  );
         balance = 0.00;
         active = true;
         overdraft = false;
@@ -34,6 +38,18 @@ public class Account
     {
          this(owner);
          balance+= initialAmount;        
+    }
+    
+    public Account(int accountId, User owner, double initialAmount)
+    {
+        this.owner = owner;
+        this.accountId = accountId;
+        
+        this.balance = 0.00;
+        
+        active = true;
+        overdraft = false;
+        balance+= initialAmount;        
     }
     
     public boolean deposit(double amount)
@@ -59,6 +75,20 @@ public class Account
      */
     public double getBalance() {
         return balance;
+    }
+
+    /**
+     * @return the accountId
+     */
+    public int getAccountId() {
+        return accountId;
+    }
+
+    /**
+     * @param accountId the accountId to set
+     */
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
     
     

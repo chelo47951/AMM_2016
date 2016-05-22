@@ -203,6 +203,12 @@ public class TestUserFactory extends UserFactory
         
         return null;
     }
+
+    @Override
+    public boolean updateAccount(Account a, double amount, boolean debit) 
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     
