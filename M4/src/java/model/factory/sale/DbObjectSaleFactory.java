@@ -146,7 +146,8 @@ public class DbObjectSaleFactory extends ObjectSaleFactory
          
          try 
          {
-             String sql = "select * from OBJECT_SALES ";
+             String sql = "select * from OBJECT_SALES "+
+                          " where NUM_OF_ITEMS > 0  ";
                     
              
              Statement stmt = conn.createStatement();
@@ -250,7 +251,10 @@ public class DbObjectSaleFactory extends ObjectSaleFactory
              int numOfItems = objSale.getNumOfItems();
              
              connect();
+        /*   
              
+             
+             // Questa logica è stata abbandonata in favore della cancellazione logica con il decremento, per vari motivi
              if(numOfItems == 0)
              {
                // rimuoviamo completamente l'oggetto
@@ -280,6 +284,26 @@ public class DbObjectSaleFactory extends ObjectSaleFactory
                  
                  
              }
+             
+         } 
+             
+
+*/
+        
+          //Aggiorniamo il db con il nuovo numero decrementato (precedentemente) di un unità
+                 
+                  
+             sql = "UPDATE OBJECT_SALES " +
+                     " SET NUM_OF_ITEMS = ? " +
+                     " WHERE OBJECT_SALE_ID = ? ";
+             
+             stmt = conn.prepareStatement(sql);
+             
+             stmt.setInt(1,numOfItems);
+             stmt.setInt(2, id);
+                 
+                 
+             
              
              int numOfRows = stmt.executeUpdate();
              
