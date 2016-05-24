@@ -85,9 +85,19 @@ public class Venditore extends HttpServlet {
                   String username = (String)session.getAttribute(USERNAME);
                   Vendor vendor = usrFactory.getVendorByUsername(username);
                 
-                   //La servlet gestisce l'aggiunta di un nuovo oggetto
+                  ObjectSale objSale = new ObjectSale();
+                  objSale.setName("");
+                  objSale.setDescription("");
+                  objSale.setCategory("");
+                  objSale.setImgUrl("");
+                  
+                  
+                   //La servlet gestisce l'aggiunta di un nuovo oggetto o la modifica di uno già inserito
                    if( request.getParameter("Submit") != null )
                    {
+                       
+                       Integer objectId = Util.tryParseInt(request.getParameter("objectId"));
+                       
                        String name = request.getParameter("nomeArticolo");
                        String desc = request.getParameter("descArticolo");
                        String category = request.getParameter("categoria");
@@ -106,13 +116,85 @@ public class Venditore extends HttpServlet {
                            )
                        {
                            ObjectSale objToAdd = new ObjectSale(name, desc, category, price, num, imgUrl, vendor);
-                           objFactory.addToSellingObjectList(objToAdd);
+                           
+                           if(objectId != null)
+                           {
+                                objToAdd.setObjectSaleId(objectId);
+                                objFactory.updateSellingObjectList(objToAdd);
+                           }
+                           else
+                            objFactory.addToSellingObjectList(objToAdd);
                            
                            request.setAttribute(OBJECT_ADDED_MESSAGE, OBJECT_ADDED_MESSAGE_TEXT);
+                           
+                           
+                            List<ObjectSale> items = objFactory.getSellingObjectListByVendorId(vendor.getUserId()); 
+
+                        request.setAttribute(SELLING_ITEMS, items);
+                       
+                         List<MenuLi> menuItems = mb.getMenuByPage(VENDOR_PAGE);        
+                            request.setAttribute(MENU_ITEMS, menuItems);
+                            
+                         request.getRequestDispatcher(VENDOR_PAGE).forward(request, response);
                        
                        }
                        
                    }
+                    else if( (request.getParameter("Update") != null) && (request.getParameter("objectSaleId") != null) )
+                   {
+                       // Carica la form con i campi dell'oggetto
+                     //  int objectSaleId= request.getParameter("objectSaleId");
+                       Integer objectSaleId = Util.tryParseInt( request.getParameter("objectSaleId"));
+                       
+                        objSale = objFactory.getObjectSaleById(objectSaleId);
+                       
+                       request.setAttribute(OBJECT_TO_UPDATE,objSale );
+                       
+                   }
+                    
+                    
+                   else if( (request.getParameter("AddItem") != null) && (request.getParameter("objectSaleId") != null) )
+                   {
+                       // Carica la form con i campi dell'oggetto
+                     //  int objectSaleId= request.getParameter("objectSaleId");
+                       Integer objectSaleId = Util.tryParseInt( request.getParameter("objectSaleId"));
+                       
+                      
+                       
+                        objSale = objFactory.getObjectSaleById(objectSaleId);
+                       
+                        objFactory.AddItemOfObjectSale(objSale);
+                       
+                        List<ObjectSale> items = objFactory.getSellingObjectListByVendorId(vendor.getUserId()); 
+
+                        request.setAttribute(SELLING_ITEMS, items);
+                       
+                         List<MenuLi> menuItems = mb.getMenuByPage(VENDOR_PAGE);        
+                            request.setAttribute(MENU_ITEMS, menuItems);
+                            
+                         request.getRequestDispatcher(VENDOR_PAGE).forward(request, response);
+                       
+                   }
+                   
+                    else if( (request.getParameter("Remove") != null) && (request.getParameter("objectSaleId") != null) )
+                    {
+                     
+                     // Carica la form con i campi dell'oggetto
+                     //  int objectSaleId= request.getParameter("objectSaleId");
+                       Integer objectSaleId = Util.tryParseInt( request.getParameter("objectSaleId"));
+                       objFactory.removeObjectSaleById(objectSaleId);
+                       
+                      
+                        List<ObjectSale> items = objFactory.getSellingObjectListByVendorId(vendor.getUserId()); 
+
+                        request.setAttribute(SELLING_ITEMS, items);
+                       
+                         List<MenuLi> menuItems = mb.getMenuByPage(VENDOR_PAGE);        
+                            request.setAttribute(MENU_ITEMS, menuItems);
+                            
+                         request.getRequestDispatcher(VENDOR_PAGE).forward(request, response);
+                       
+                    }
 
               }
            }
@@ -120,7 +202,7 @@ public class Venditore extends HttpServlet {
       
             List<MenuLi> menuItems = mb.getMenuByPage(VENDOR_PAGE);        
             request.setAttribute(MENU_ITEMS, menuItems);
-            request.getRequestDispatcher(VENDOR_PAGE).forward(request, response);
+            request.getRequestDispatcher(UPDATE_OBJECT_PAGE).forward(request, response);
        }
        
           // Se non esiste neanche la sessione rimandiamo al login

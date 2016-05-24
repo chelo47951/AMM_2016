@@ -161,7 +161,7 @@ public class TestObjectSaleFactory extends ObjectSaleFactory
     }
 
     @Override
-    public List<ObjectSale> getSellingObjectListByVendorId(String category) 
+    public List<ObjectSale> getSellingObjectListByVendorId(int vendorId) 
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -177,6 +177,16 @@ public class TestObjectSaleFactory extends ObjectSaleFactory
     @Override
     public boolean updateSellingObjectList(ObjectSale objSale) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean removeObjectSaleById(Integer objectSaleId) {
+       return true;
+    }
+
+    @Override
+    public boolean AddItemOfObjectSale(ObjectSale objSale) {
+        return true;
     }
     
     

@@ -144,6 +144,12 @@ public class Login extends HttpServlet {
                             session.removeAttribute(IS_CUSTOMER);
                             session.removeAttribute(CUSTOMER);
                             
+                            
+                             ObjectSaleFactory factory = ObjectSaleFactoryBuilder.getFactory(appMode);    
+                             List<ObjectSale> items = factory.getSellingObjectListByVendorId(user.getUserId()); 
+
+                             request.setAttribute(SELLING_ITEMS, items);
+                            
                             List<MenuLi> menuItems = mb.getMenuByPage(VENDOR_PAGE);        
                             request.setAttribute(MENU_ITEMS, menuItems);
                             

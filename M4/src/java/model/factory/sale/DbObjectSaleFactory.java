@@ -195,8 +195,61 @@ public class DbObjectSaleFactory extends ObjectSaleFactory
     }
 
     @Override
-    public List<ObjectSale> getSellingObjectListByVendorId(String category) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<ObjectSale> getSellingObjectListByVendorId(int vendorId)
+    {
+        connect();
+         items = new ArrayList<>();
+         
+          UserFactory userfactory =  UserFactoryBuilder.getFactory(DB_FACTORY_MODE);
+          Vendor vendor = userfactory.getVendorById(vendorId);
+         
+         try 
+         {
+             String sql = "select * from OBJECT_SALES "+
+                          " where VENDOR_ID = ?  ";
+                           
+             
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             stmt.setInt(1, vendorId);
+             
+             ResultSet set = stmt.executeQuery();
+             
+            
+             
+             while (set.next()) 
+             {
+                  
+               
+                 
+                   ObjectSale o = new ObjectSale(
+                           set.getInt("OBJECT_SALE_ID"),
+                           set.getString("OBJECT_NAME"),
+                           set.getString("DESCRIPTION"), 
+                           set.getString("CATEGORY"),
+                           set.getDouble("PRICE"),                           
+                           set.getInt("NUM_OF_ITEMS"),
+                           set.getString("IMG_URL"), 
+                           vendor
+                   ); 
+                   
+                   items.add(o);
+                     
+             }
+             
+             stmt.close();
+             disconnect();
+             return items;    
+                
+         }
+         catch (SQLException ex)
+         {
+             Logger.getLogger(DbUserFactory.class.getName()).log(Level.SEVERE, null, ex);
+             disconnect();
+             return null;
+            
+         }
+      
+             
     }
 
     @Override
@@ -293,12 +346,114 @@ public class DbObjectSaleFactory extends ObjectSaleFactory
           //Aggiorniamo il db con il nuovo numero decrementato (precedentemente) di un unità
                  
                   
-             sql = "UPDATE OBJECT_SALES " +
-                     " SET NUM_OF_ITEMS = ? " +
+             sql = "UPDATE OBJECT_SALES " +                  
+                     " SET OBJECT_NAME = ? , CATEGORY = ?, IMG_URL = ?  , DESCRIPTION = ? , PRICE = ? ,NUM_OF_ITEMS = ? " +
+                     " WHERE OBJECT_SALE_ID = ? ";
+             
+         
+             
+             stmt = conn.prepareStatement(sql);
+             
+             stmt.setString(1, objSale.getName());
+             stmt.setString(2, objSale.getCategory());
+             stmt.setString(3, objSale.getImgUrl());
+             stmt.setString(4, objSale.getDescription());
+             stmt.setDouble(5, objSale.getPrice());
+             stmt.setInt(6,numOfItems);
+             stmt.setInt(7, id);
+                 
+                 
+             
+             
+             int numOfRows = stmt.executeUpdate();
+             
+             if(numOfRows != 1)
+                  retVal = false;
+             else
+                 retVal = true;
+             
+             disconnect();
+             return retVal;
+         } 
+         catch (SQLException ex) 
+         {
+             Logger.getLogger(DbUserFactory.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
+         }
+    }
+
+    @Override
+    public boolean removeObjectSaleById(Integer objectSaleId) 
+    {
+        
+        try 
+         {
+             boolean retVal = false;
+           
+             PreparedStatement stmt;
+             String sql;
+             
+                        
+             connect();                      
+                        
+               // rimuoviamo completamente l'oggetto           
+             
+             sql = "DELETE FROM OBJECT_SALES " +                    
                      " WHERE OBJECT_SALE_ID = ? ";
              
              stmt = conn.prepareStatement(sql);
              
+             stmt.setInt(1, objectSaleId);
+             
+             
+             int numOfRows = stmt.executeUpdate();
+             
+             if(numOfRows != 1)
+                  retVal = false;
+             else
+                 retVal = true;
+             
+             disconnect();
+             return retVal;
+         } 
+         catch (SQLException ex) 
+         {
+             Logger.getLogger(DbUserFactory.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
+         }
+       
+    }
+
+    @Override
+    public boolean AddItemOfObjectSale(ObjectSale objSale) 
+    {
+         try 
+         {
+             boolean retVal = false;
+           
+             PreparedStatement stmt;
+             String sql;
+             
+             int id = objSale.getObjectSaleId();
+             int numOfItems = objSale.getNumOfItems();
+             
+             numOfItems++;
+             
+             connect();
+        
+        
+          
+                 
+                  
+             sql = "UPDATE OBJECT_SALES " +                  
+                     " SET NUM_OF_ITEMS = ? " +
+                     " WHERE OBJECT_SALE_ID = ? ";
+             
+         
+             
+             stmt = conn.prepareStatement(sql);
+             
+       
              stmt.setInt(1,numOfItems);
              stmt.setInt(2, id);
                  

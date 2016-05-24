@@ -37,56 +37,69 @@
                </c:when>
 
                <c:otherwise> 
-                   
-            <c:if test="${ObjectAdded != null}">
-                <p>${ObjectAdded}</p>
-                <p>Potete inserire un nuovo oggetto:</p>
-            </c:if>
-               
+
                  <div id="main-form">
                    <form method="get" action="venditore.html">
-
-                    <div class="form-row clearfix">
-                       <label for="nomeArticolo">Nome Articolo:</label>
-                       <input type="text" id="nomeArticolo" name="nomeArticolo">
-                    </div>
-                   
-                     <div class="form-row clearfix">
-                       <label for="categoria">Categoria:</label>
-                       <input type="text" id="categoria" name="categoria">
-                    </div>
-                       
-                   <div class="form-row clearfix">  
-                       <label for="imgurl">Url Immagine:</label>
-                       <input type="url" id="imgurl" name="imgurl">
-
-                    </div>
-
+                  
                   <div class="form-row clearfix">
-                       <label for="descArticolo">Descrizione:</label>
-                       <textarea id="descArticolo" name="descArticolo" rows="5" cols="20" placeholder="Inserire una descrizione"></textarea>
-
-                  </div>
-                  <div class="form-row clearfix">
-                       <label for="prezzo">Prezzo:</label>
-                       <input type="number" min="0" id="prezzo" name="prezzo">
-
-                  </div>
-
-                  <div class="form-row clearfix">  
-                       <label for="numpezzi">Numero di pezzi:</label>
-                       <input type="number" min="1" id="numpezzi" name="numpezzi">
+                       <input type="submit" name="NewObject" value="Aggiungi Nuovo Oggetto">
 
                  </div>
-
-                  <div class="form-row clearfix">
-                       <input type="submit" name="Submit" value="Invia">
-
-                 </div>
-
                    </form>
+                 </div>
+                   
+                   <h3>Oggetti attualmente in vendita:</h3>     
+          <table id="articoli">
+                <tr>
+                    <th id="h-art">Articolo</th>
+                    <th id="h-img">Foto</th>                
+                    <th id="h-num">Pezzi disponibili</th>
+                    <th id="h-price">Prezzo</th>
+                    <th id="h-action">Azione</th>
+                </tr>
+                
+                
+                <c:forEach var="o" items="${sellingItems}">
+                  <c:choose>
+                    <c:when test="${o.numOfItems > 0}">
+                        <tr>
+                            <td>${o.name}</td>
+                            <td><img src="${o.imgUrl}" alt="${o.description}"></td>
+                            <td>${o.numOfItems}</td>
+                            <td>${o.price}€</td>
+                            <td> 
+                             
+                                <a href="venditore.html?AddItem=Aggiungi&objectSaleId=${o.objectSaleId}"><img src="img/add-icon-small.png" alt="Aggiungi pezzo"></a>
+                                <a href="venditore.html?Update=Modifica&objectSaleId=${o.objectSaleId}"><img src="img/modify-icon-small.png" alt="Modifica"></a>
+                                <a href="venditore.html?Remove=Rimuovi&objectSaleId=${o.objectSaleId}"><img src="img/remove-icon-small.png" alt="Rimuovi"></a>                  
+                                                      
+                            </td>
+                        </tr>
+                  </c:when>
+                  <c:otherwise>
+                      <div class="removed">
+                      <tr>
+                            <td>${o.name}</td>
+                            <td><img src="${o.imgUrl}" alt="${o.description}"></td>
+                            <td>${o.numOfItems}</td>
+                            <td>${o.price}€</td>
+                            <td> 
+                                <a href="venditore.html?AddItem=Aggiungi&objectSaleId=${o.objectSaleId}"><img src="img/add-icon-small.png" alt="Aggiungi pezzo"></a>
+                                <a href="venditore.html?Update=Modifica&objectSaleId=${o.objectSaleId}"><img src="img/modify-icon-small.png" alt="Modifica"></a> 
+                                <a href="venditore.html?Remove=Rimuovi&objectSaleId=${o.objectSaleId}"><img src="img/remove-icon-small.png" alt="Rimuovi"></a>                      
+                                                      
+                            </td>
+                        </tr>
+                      </div>
+                  </c:otherwise>
+                        
+                </c:choose>
+                </c:forEach>
+              
+             
+         </table>
 
-                  </div>
+               
                 
                  </c:otherwise>
                 

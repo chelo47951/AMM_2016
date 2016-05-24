@@ -44,7 +44,8 @@ public class Constant
       public final static String LOGIN_PAGE = BASE_PATH  +   "login.jsp";
       public final static String DESCRIPTION_PAGE= BASE_PATH   +   "descrizione.jsp";
       public final static String CUSTOMER_PAGE = BASE_PATH   +   "cliente.jsp";
-      public final static String VENDOR_PAGE = BASE_PATH   +   "venditore.jsp";
+      public final static String VENDOR_PAGE = BASE_PATH   + "venditore.jsp";
+      public final static String UPDATE_OBJECT_PAGE = BASE_PATH   + "modifica_oggetto.jsp";
       public final static String BUY_PAGE = BASE_PATH   +   "acquista.jsp";
       public final static String CART_PAGE = BASE_PATH   +   "carrello.jsp";
       public final static String BUY_COMMIT = BASE_PATH   +   "conferma_acquisto.jsp";
@@ -81,6 +82,7 @@ public class Constant
       public final static String NUM_OF_ITEMS = "NumOfItems";
       public final static String OBJECT_IMG_URL = "ObjectImgUrl";
       public final static String OBJECT_PRICE = "ObjectPrice";
+      public final static String OBJECT_TO_UPDATE = "ObjectToUpdate";
       public final static String CURRENT_PURCHASE = "CurrentPurchase";
       public final static String PREVIOUS_BALANCE = "PreviousBalance";
       public final static String CURRENT_BALANCE = "CurrentBalance";

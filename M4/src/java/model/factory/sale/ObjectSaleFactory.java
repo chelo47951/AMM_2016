@@ -30,8 +30,13 @@ public abstract class ObjectSaleFactory
     public abstract ObjectSale getObjectSaleById(int id);
     public abstract List<ObjectSale> getSellingObjectList();
     public abstract List<ObjectSale> getSellingObjectListByCategory(String category);
-    public abstract List<ObjectSale> getSellingObjectListByVendorId(String category);
+    public abstract List<ObjectSale> getSellingObjectListByVendorId(int vendorId);
     public abstract ObjectSale addToSellingObjectList(ObjectSale objSale);
     public abstract boolean updateSellingObjectList(ObjectSale objSale);
+    public abstract  boolean removeObjectSaleById(Integer objectSaleId); 
+
+    public abstract boolean AddItemOfObjectSale(ObjectSale objSale) ; 
+    
+   
     
 }

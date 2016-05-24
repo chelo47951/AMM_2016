@@ -227,14 +227,14 @@ public class Transaction
         {
           connect();
             
-           String sql = "INSERT INTO TRANSACTIONS (TRANSACTION_ID ,CUSTOMER_ID ,VENDOR_ID ,OBJECT_SALE_ID,AMOUNT,COMMIT_DATE ) " +
+           String sql = "INSERT INTO TRANSACTIONS (TRANSACTION_ID ,CUSTOMER_ID ,VENDOR_ID ,OBJECT_NAME,AMOUNT,COMMIT_DATE ) " +
             " VALUES (default,?,?,?,?,default)";
              
              PreparedStatement stmt = conn.prepareStatement(sql);
              
              stmt.setInt(1,customer.getUserId());
              stmt.setInt(2,vendor.getUserId());
-             stmt.setInt(3, objectSale.getObjectSaleId());            
+             stmt.setString(3, objectSale.getName());            
              stmt.setDouble(4,amount );
             
              
