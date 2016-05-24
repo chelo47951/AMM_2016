@@ -11,6 +11,7 @@ import Util.MenuBuilder;
 import Util.MenuLi;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -24,6 +25,7 @@ import model.factory.sale.ObjectSaleFactoryBuilder;
 import model.factory.user.UserFactory;
 import model.factory.user.UserFactoryBuilder;
 import model.sale.ObjectSale;
+import model.sale.ShoppingCart;
 import model.user.Customer;
 
 /**
@@ -77,10 +79,31 @@ public class Carrello extends HttpServlet {
                 if(isCustomer != null && isCustomer == true)
                { 
                    
-                      Customer c = (Customer) session.getAttribute(CUSTOMER);
-                      List<ObjectSale> items = c.getCart().getItems();
+                   if(request.getParameter("Svuota") != null)
+                   {
+                      ShoppingCart shopper = (ShoppingCart) session.getAttribute(SHOPPER);
+                      shopper.clearCart();
                       
-                      request.setAttribute("cartItems", items);
+                      
+                            ObjectSaleFactory factory = ObjectSaleFactoryBuilder.getFactory(appMode);       
+                            List<ObjectSale> items = factory.getSellingObjectList(); 
+                            
+                            request.setAttribute(SELLING_ITEMS, items);
+                        
+                            
+                            
+                            List<MenuLi> menuItems = mb.getMenuByPage(CUSTOMER_PAGE);        
+                            request.setAttribute(MENU_ITEMS, menuItems);
+                            
+                            request.getRequestDispatcher(CUSTOMER_PAGE).forward(request, response);
+                      
+                   }
+                   
+                   
+                     Customer c = (Customer) session.getAttribute(CUSTOMER);
+                      List<ObjectSale> items =  new ArrayList<ObjectSale>( c.getCart().getItems());
+                      
+                     request.setAttribute("cartItems", items);
                       
                      List<MenuLi> menuItems = mb.getMenuByPage(CART_PAGE);        
                     request.setAttribute(MENU_ITEMS, menuItems);

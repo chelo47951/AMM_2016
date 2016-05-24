@@ -7,8 +7,10 @@ package model.sale;
 
 import Util.Constant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 /**
  *
@@ -21,7 +23,7 @@ public class ShoppingCart
     
      private int ShoppingCartId;
      
-     private List<ObjectSale> items;    
+     private Set<ObjectSale> items;    
      private int numOfItems;
      
      
@@ -31,18 +33,18 @@ public class ShoppingCart
           this.ShoppingCartId = Math.abs(  rn.nextInt() % Constant.MAX_ID  ); 
          
          numOfItems = 0;
-         items =  new ArrayList<>();
+         items =  new HashSet<>();
      }
      
      public void addToCart(ObjectSale item)
      {
-         getItems().add(item);
+         items.add(item);
          numOfItems++;
      }
      
       public void removeFromCart(ObjectSale item)
      {
-         getItems().remove(item);
+         items.remove(item);
          numOfItems--;
      }
       
@@ -62,7 +64,7 @@ public class ShoppingCart
     /**
      * @return the items
      */
-    public List<ObjectSale> getItems() {
+    public Set<ObjectSale> getItems() {
         return items;
     }
 

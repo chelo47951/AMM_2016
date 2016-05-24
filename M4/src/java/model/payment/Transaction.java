@@ -43,6 +43,7 @@ public class Transaction
     private  String appMode;
     private Connection conn;
     private String connectionString;
+   
      
    
      public void connect() 
@@ -82,6 +83,7 @@ public class Transaction
         this.objectSale = objectSale;
         this.isSuccess = false;
         this.appMode = appMode;
+     
     }
     
      private boolean buy()
@@ -92,7 +94,7 @@ public class Transaction
           int num = objectSale.getNumOfItems();
           objectSale.setNumOfItems(--num);
           
-          customer.checkoutItem(objectSale);
+
          
           return true;
         }

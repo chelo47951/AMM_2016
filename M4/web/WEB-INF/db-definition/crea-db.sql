@@ -96,9 +96,9 @@ VALUES (default, 'Mario','Rossi','Via del Corso 11, Roma','rossim60','1960','IsC
 
 /* Conti correnti */
 INSERT INTO ACCOUNTS (ACCOUNT_ID, BALANCE, USER_ID, IS_ACTIVE, IS_OVERDRAFT)
-VALUES (default, 250.00 ,1,default, default),
+VALUES (default, 650.00 ,1,default, default),
  (default, 50.00 ,2,default, default),
- (default, 150.00 ,3,default, default),
+ (default, 250.00 ,3,default, default),
  (default, 10.00 ,4,default, default);
 
 /* Oggetti in vendita */

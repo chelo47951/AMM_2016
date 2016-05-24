@@ -36,15 +36,15 @@
                     <img src="img/cart-small.png" alt="carrello-right" width="42px" height="42px">
                     </a>
                     
-                    <c:if test="${Customer.cart.numOfItems > 0}">
+                    <c:if test="${Shopper.numOfItems > 0}">
                     <p class="text-in-circle-full">
-                        ${Customer.cart.numOfItems}                   
+                        ${Shopper.numOfItems}                   
                     </p>
                     </c:if>
                     
-                    <c:if test="${Customer.cart.numOfItems == 0}">
+                    <c:if test="${Shopper.numOfItems == 0}">
                         <p class="text-in-circle-empty">
-                            ${Customer.cart.numOfItems}                   
+                            ${Shopper.numOfItems}                   
                         </p>
                         
                     </c:if>

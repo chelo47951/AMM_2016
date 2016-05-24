@@ -63,6 +63,7 @@ public class Constant
       public final static String IS_VENDOR = "IsVendor";
       public final static String CUSTOMER = "Customer";
       public final static String VENDOR = "Vendor";
+      public final static String SHOPPER  = "Shopper";
      
       
       

@@ -36,6 +36,7 @@ import Util.MenuLi;
 import Util.Util;
 import model.payment.PaymentSystem;
 import model.payment.Transaction;
+import model.sale.ShoppingCart;
 
 
 /**
@@ -119,6 +120,8 @@ public class Acquista extends HttpServlet {
                                    request.setAttribute(PREVIOUS_BALANCE,previousBalance);
                                    request.setAttribute(CURRENT_PURCHASE,obj.getPrice());
                                    request.setAttribute(CURRENT_BALANCE ,c.getAccount().getBalance() );
+                                   ShoppingCart shopper = (ShoppingCart)session.getAttribute(SHOPPER);
+                                   shopper.removeFromCart(obj);
                                    
                                    
                                }
@@ -176,7 +179,8 @@ public class Acquista extends HttpServlet {
                         request.setAttribute(SELECTED_OBJECT,obj);
                         
                         //Aggiungiamo al carrello
-                        c.addToCart(obj);
+                         ShoppingCart shopper = (ShoppingCart)session.getAttribute(SHOPPER);
+                         shopper.addToCart(obj);
 
                         //Otteniamo l'id del venditore
                         Vendor v = obj.getVendor();

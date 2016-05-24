@@ -5,8 +5,10 @@
  */
 package model.user;
 
+import static Util.Constant.SHOPPER;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import model.sale.ObjectSale;
 import model.sale.ShoppingCart;
 
@@ -65,8 +67,8 @@ public class Customer extends User
     
      public void removeFromPurchasingItems(ObjectSale objectSale)
     {
-      
-        getCart().removeFromCart(objectSale);
+          
+        
     }
      
      public void checkoutItem(ObjectSale objectSale)
@@ -79,6 +81,13 @@ public class Customer extends User
      */
     public ShoppingCart getCart() {
         return cart;
+    }
+
+    /**
+     * @param cart the cart to set
+     */
+    public void setCart(ShoppingCart cart) {
+        this.cart = cart;
     }
     
     

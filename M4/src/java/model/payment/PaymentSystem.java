@@ -8,6 +8,7 @@ package model.payment;
 import model.factory.user.TestUserFactory;
 import model.sale.ObjectSale;
 import model.user.Customer;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,7 +31,7 @@ public class PaymentSystem
     }
     */
     
-    public static Transaction buy(ObjectSale objectSale, Customer customer, String appMode)
+    public static Transaction buy(ObjectSale objectSale,Customer customer, String appMode)
     {
         boolean isSuccess = false;
         String msg;

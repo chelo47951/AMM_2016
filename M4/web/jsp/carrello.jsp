@@ -60,7 +60,7 @@
                             <td>${o.price}€</td>
                             
                             <td>
-                                 <form  method="get" action="acquista.html">                          
+                                 <form  method="get" action="carrello.html">                          
                                      <input type="submit" name="Checkout" value="Checkout">                       
                                 </form>
                             </td>
@@ -74,7 +74,7 @@
                      </table>
              
                      <div id="main-form">                      
-                        <form method="get" action="checkout.html">
+                        <form method="get" action="carrello.html">
                         <div class="form-row clearfix">                          
                               <input type="submit" name="TotCheckout" value="Checkout Totale">
                       </div>
@@ -82,7 +82,7 @@
                     </div>
                     
                       <div id="main-form">
-                        <form method="get" action="svuota.html"> 
+                        <form method="get" action="carrello.html"> 
                           <div class="form-row clearfix">
                               <input type="submit" name="Svuota" value="Svuota Carrello">
                          </div>

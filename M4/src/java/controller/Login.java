@@ -52,8 +52,8 @@ public class Login extends HttpServlet {
     {
        
         
-       // String dbConnectionString =  JDBC_DERBY + this.getServletContext().getRealPath("/") + DB_BUILD_PATH;
-        String dbConnectionString =  JDBC_DERBY + DB_URL;
+      // String dbConnectionString =  JDBC_DERBY + this.getServletContext().getRealPath("/") + DB_BUILD_PATH;
+      String dbConnectionString =  JDBC_DERBY + DB_URL;
         try
         {
             Class.forName(JDBC_DRIVER);
@@ -131,6 +131,11 @@ public class Login extends HttpServlet {
                             List<ObjectSale> items = factory.getSellingObjectList(); 
                             
                             request.setAttribute(SELLING_ITEMS, items);
+                            ShoppingCart shopper = new ShoppingCart();
+                            shopper.clearCart();
+                            ((Customer)user).setCart(shopper);
+                            session.setAttribute(SHOPPER, shopper);
+                            
                             
                             List<MenuLi> menuItems = mb.getMenuByPage(CUSTOMER_PAGE);        
                             request.setAttribute(MENU_ITEMS, menuItems);
@@ -143,6 +148,7 @@ public class Login extends HttpServlet {
                             session.setAttribute(VENDOR, user);
                             session.removeAttribute(IS_CUSTOMER);
                             session.removeAttribute(CUSTOMER);
+                            session.removeAttribute(SHOPPER);
                             
                             
                              ObjectSaleFactory factory = ObjectSaleFactoryBuilder.getFactory(appMode);    
