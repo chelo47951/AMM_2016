@@ -80,7 +80,7 @@
                     
                </c:when> 
                     
-                     <c:when test="${TransactionRolledBackMessage != null && TransactionRolledBackMessage!=\"\"}">
+               <c:when test="${TransactionRolledBackMessage != null && TransactionRolledBackMessage!=\"\"}">
                    <div id="errorMessage">
                         <p>${TransactionRolledBackMessage}<p>
                   </div>

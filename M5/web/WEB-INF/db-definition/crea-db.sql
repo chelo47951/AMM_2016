@@ -96,17 +96,19 @@ VALUES (default, 'Mario','Rossi','Via del Corso 11, Roma','rossim60','1960','IsC
 
 /* Conti correnti */
 INSERT INTO ACCOUNTS (ACCOUNT_ID, BALANCE, USER_ID, IS_ACTIVE, IS_OVERDRAFT)
-VALUES (default, 650.00 ,1,default, default),
+VALUES (default, 850.00 ,1,default, default),
  (default, 50.00 ,2,default, default),
- (default, 250.00 ,3,default, default),
- (default, 10.00 ,4,default, default);
+ (default, 350.00 ,3,default, default),
+ (default, 80.00 ,4,default, default);
 
 /* Oggetti in vendita */
 INSERT INTO OBJECT_SALES (OBJECT_SALE_ID, OBJECT_NAME, DESCRIPTION, CATEGORY, PRICE,NUM_OF_ITEMS,IMG_URL,VENDOR_ID)
  VALUES (default,'Captain Kirk','Star Trek: Captain Kirk', 'Action Figure', 299.00,3,'img/kirk.jpg',2),
  (default,'Eric Draven','The Crow: Eric Draven', 'Action Figure', 235.00,2,'img/theCrow.jpg',2),
+ (default,'007 Roger Moore','Sideshow 007 Roger Moore 1/4', 'Action Figure', 335.00,1,'img/sideshow_moore_quarter.jpg',2),
  (default,'Devilman','Devilman anime version', 'Action Figure', 85.00,5,'img/devilman.jpg',2),
  (default,'Jeeg','Jeeg Robot', 'Robot', 155.00,2,'img/jeeg.jpg',4),
+ (default,'Ken il guerriero','Hokuto no Ken- Ken il guerriero', 'Action Figure', 75.00,3,'img/ken.jpg',4),
  (default,'Goldrake','Goldrake Bandai', 'Robot', 145.00,3,'img/goldrake.jpg',4),
  (default,'Nausicaa','Nausicaa della valle del vento', 'DVD', 35.00,6,'img/Nausicaa-dvd.png',4);
 

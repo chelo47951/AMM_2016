@@ -34,6 +34,9 @@ import static Util.Constant.*;
 import Util.MenuBuilder;
 import Util.MenuLi;
 import Util.Util;
+import java.util.ArrayList;
+import java.util.Set;
+import model.payment.Account;
 import model.payment.PaymentSystem;
 import model.payment.Transaction;
 import model.sale.ShoppingCart;
@@ -147,7 +150,168 @@ public class Acquista extends HttpServlet {
                        
                        }
                    
-                   }                  
+                   }
+                   else if( request.getParameter("Checkout") != null)
+                   {
+                        //Conferma acquisto da Checkout del carrello
+                       String username = request.getParameter(USERNAME);
+                       Customer c = usrFactory.getCustomerByUsername(username);
+                       
+                       Integer CustomerId =  c.getUserId();
+                     
+                       Integer ObjectId =   Util.tryParseInt(request.getParameter(OBJECT_ID));
+                       ObjectSale obj = objFactory.getObjectSaleById(ObjectId);
+                       Integer VendorId =   obj.getVendor().getUserId();
+                       
+                       
+                       if( CustomerId!= null && CustomerId > 0 &&
+                           VendorId!= null && VendorId > 0 &&  
+                           ObjectId!= null && ObjectId > 0 )
+                       {
+                           
+                          
+                           Vendor v = usrFactory.getVendorById(VendorId);
+                          
+                           
+                           if(c != null && v != null && obj != null)
+                           {
+                               double previousBalance =  c.getAccount().getBalance();
+                               Transaction t = PaymentSystem.buy(obj, c,appMode);
+                               if(t.isIsSuccess())
+                               {
+                                   request.setAttribute(TRANSACTION_COMMITED_MESSAGE, t.getMessage());
+                                   request.setAttribute(OBJECT_ID,ObjectId);
+                                   request.setAttribute(PREVIOUS_BALANCE,previousBalance);
+                                   request.setAttribute(CURRENT_PURCHASE,obj.getPrice());
+                                   request.setAttribute(CURRENT_BALANCE ,c.getAccount().getBalance() );
+                                   ShoppingCart shopper = (ShoppingCart)session.getAttribute(SHOPPER);
+                                   shopper.removeFromCart(obj);
+                                   
+                                   
+                               }
+                               else
+                               {
+                                   request.setAttribute(TRANSACTION_ROLLEDBACK_MESSAGE, t.getMessage());
+                                 
+                               }
+                               
+                                List<MenuLi> menuItems = mb.getMenuByPage(BUY_PAGE);        
+                                request.setAttribute(MENU_ITEMS, menuItems);
+                               
+                                request.getRequestDispatcher(BUY_PAGE).forward(request, response); 
+                               
+                           }
+                           
+                             
+                            List<MenuLi> menuItems = mb.getMenuByPage(CUSTOMER_PAGE);        
+                            request.setAttribute(MENU_ITEMS, menuItems);
+                           
+                            request.getRequestDispatcher(CUSTOMER_PAGE).forward(request, response);
+                           
+                       
+                       }
+                       
+                   }
+                    else if( request.getParameter("TotCheckout") != null)
+                   {
+                        ShoppingCart shopper = (ShoppingCart) session.getAttribute(SHOPPER);
+                        Set<ObjectSale> cartItems = shopper.getItems();
+                        if(cartItems != null && cartItems.size() > 0)
+                        {
+                            double totalAmount = 0;
+                            for(ObjectSale o: cartItems )
+                            {
+                               totalAmount += o.getPrice();
+                            }
+                            
+                           
+                             String username = (String)session.getAttribute(USERNAME);
+                             Customer c = usrFactory.getCustomerByUsername(username);
+                       
+                             Integer CustomerId =  c.getUserId();
+                             
+                                                      
+                             if( c.getAccount().getBalance() < totalAmount)
+                             {
+                                 //Non si può effettuare il checkout totale
+                                 request.setAttribute(TRANSACTION_ROLLEDBACK_MESSAGE, TOTAL_CHECKOUT_ROLLEDBACK_REASON_CUSTOMER_TEXT);
+                                 
+                                 request.setAttribute("cartItems", shopper.getItems());
+                      
+                                 List<MenuLi> menuItems = mb.getMenuByPage(CART_PAGE);        
+                                 request.setAttribute(MENU_ITEMS, menuItems);
+
+                                 request.getRequestDispatcher(CART_PAGE).forward(request, response);
+                                 
+                             }
+                             else
+                             {
+                                 
+                                 // Procediamo all'acquisto di tutti i pezzi
+                                 // Ogni pezzo una transazione
+                                 
+                               for(ObjectSale obj: cartItems )
+                               {
+                                    //-----------------------------------------------------------------------
+                       
+                                    Integer VendorId =   obj.getVendor().getUserId();
+                                      Integer ObjectId =   obj.getObjectSaleId();
+
+                                  if( CustomerId!= null && CustomerId > 0 &&
+                                     VendorId!= null && VendorId > 0 &&  
+                                     ObjectId!= null && ObjectId > 0 )
+                                 {
+
+
+                                     Vendor v = usrFactory.getVendorById(VendorId);
+
+
+                                     if(c != null && v != null && obj != null)
+                                     {
+                                         double previousBalance =  c.getAccount().getBalance();
+                                         Transaction t = PaymentSystem.buy(obj, c,appMode);
+                                         if(t.isIsSuccess())
+                                         {
+                                             request.setAttribute(TRANSACTION_COMMITED_MESSAGE, t.getMessage());
+                                             request.setAttribute(OBJECT_ID,ObjectId);
+                                             request.setAttribute(PREVIOUS_BALANCE,previousBalance);
+                                             request.setAttribute(CURRENT_PURCHASE,totalAmount);
+                                             request.setAttribute(CURRENT_BALANCE ,c.getAccount().getBalance() );
+                                            
+                                             shopper.removeFromCart(obj);
+
+
+                                         }
+                                         else
+                                         {
+                                             request.setAttribute(TRANSACTION_ROLLEDBACK_MESSAGE, t.getMessage());
+
+                                         }
+
+                                         
+
+                                     }
+
+
+
+
+                                 }
+
+                                    
+                                    //------------------------------------------------------------------------
+                                    
+                                }
+                               
+                                List<MenuLi> menuItems = mb.getMenuByPage(BUY_PAGE);        
+                                          request.setAttribute(MENU_ITEMS, menuItems);
+
+                                          request.getRequestDispatcher(BUY_PAGE).forward(request, response); 
+                                 
+                             }
+                     
+                        }
+                       
+                   }
                   else
                   {
                       //Riepilogo oggetto e aggiunta carrello

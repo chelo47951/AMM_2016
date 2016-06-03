@@ -47,6 +47,14 @@
 
          <c:otherwise> 
              
+             
+                  <c:if test="${TransactionRolledBackMessage != null && TransactionRolledBackMessage!=\"\"}">
+                   <div id="errorMessage">
+                        <p>${TransactionRolledBackMessage}<p>
+                  </div>
+                   
+              </c:if>
+             
                 <table id="articoli">
                             <tr>
                                 <th id="h-oggetto">Articolo</th>
@@ -60,7 +68,9 @@
                             <td>${o.price}€</td>
                             
                             <td>
-                                 <form  method="get" action="carrello.html">                          
+                                 <form  method="get" action="acquista.html">  
+                                     <input type="hidden" name="Username" value="${Username}">                                 
+                                     <input type="hidden" name="ObjectSaleId" value="${o.objectSaleId}">
                                      <input type="submit" name="Checkout" value="Checkout">                       
                                 </form>
                             </td>
@@ -74,8 +84,9 @@
                      </table>
              
                      <div id="main-form">                      
-                        <form method="get" action="carrello.html">
-                        <div class="form-row clearfix">                          
+                        <form method="get" action="acquista.html">
+                        <div class="form-row clearfix"> 
+                                
                               <input type="submit" name="TotCheckout" value="Checkout Totale">
                       </div>
                        </form>

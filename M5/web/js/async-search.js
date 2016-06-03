@@ -70,11 +70,6 @@ $(document).ready(function ()
         }
         
         
-        function drawRow(o) {
-            
-
- 
-    }
     
     }); 
 });

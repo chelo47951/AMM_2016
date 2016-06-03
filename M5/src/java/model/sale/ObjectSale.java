@@ -188,4 +188,40 @@ public class ObjectSale
         this.objectSaleId = objectSaleId;
     }
     
+    
+    
+    @Override
+    public boolean equals(Object other)
+    {
+      if (this == other)     
+            return true;
+      else if(other == null)
+          return false;
+      else if (!(other instanceof ObjectSale))
+          return false;
+      else
+      {
+          ObjectSale othObj = (ObjectSale)other;
+          return this.objectSaleId == othObj.objectSaleId;
+          
+      }
+        
+    }
+    
+    
+    
+    
+      @Override
+       public int hashCode() {
+              final int prime = 199;
+              int result = 1;
+              int nameHash = name.hashCode();
+              result = prime * result + nameHash;
+              
+              return result;
+
+
+       }
+
+    
 }

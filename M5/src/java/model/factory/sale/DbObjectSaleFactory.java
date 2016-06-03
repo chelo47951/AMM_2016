@@ -491,7 +491,7 @@ public class DbObjectSaleFactory extends ObjectSaleFactory
              String sql = "select * from OBJECT_SALES "+
                           " where OBJECT_NAME like ? or DESCRIPTION like ?   ";
                     
-             
+             filterString = "%" +filterString + "%";
              
              PreparedStatement stmt = conn.prepareStatement(sql);
              

@@ -170,8 +170,63 @@ public class DbUserFactory extends UserFactory
     }
 
     @Override
-    public Customer getCustomerByUsername(String username) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Customer getCustomerByUsername(String username)
+    {
+       Customer c = null;
+        
+         connect();
+         try 
+         {
+             String sql = "select * from USERS "
+                     + "where USERNAME = ?";
+             
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             
+             stmt.setString(1, username);
+             
+             ResultSet set = stmt.executeQuery();
+             
+             while (set.next()) 
+             {
+                 String userType = set.getString("USER_TYPE");
+ 
+                 if(userType.equals(IS_CUSTOMER))
+                 {
+                     
+                     c = new Customer();
+                     
+                     c.setUserId(set.getInt("USER_ID"));
+                     c.setFname(set.getString("FNAME"));
+                     c.setLname(set.getString("LNAME"));
+                     c.setUsername(username);
+                     c.setPassword(set.getString("PASSWORD"));
+                     c.setAddress(set.getString("ADDRESS"));
+                     
+                     //Occorre l'account 
+                     Account a = getAccountByUserId(c);
+                     
+                     c.setAccount(a);
+                     
+                     
+                 }
+                 
+                 
+                
+             }
+             
+              stmt.close();
+              disconnect();
+              return c;
+             
+         }
+         catch (SQLException ex)
+         {
+             Logger.getLogger(DbUserFactory.class.getName()).log(Level.SEVERE, null, ex);
+            
+             disconnect();
+             return null;
+            
+         }
     }
 
     @Override

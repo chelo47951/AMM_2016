@@ -28,6 +28,19 @@
 
         
         <section>
+                        
+            <c:if test="${IsVendor != null}">
+                <div class="cart-box">
+                    <p>User: <strong>${Username}</strong></p>
+                                        
+                    <img src="img/box.png" alt="carrello-right" width="42px" height="42px">
+                                       
+                        <p class="text-in-circle-empty">
+                            ${sellingItems.size()}                   
+                        </p>                        
+                                      
+                </div>
+            </c:if>
             <h2>Pagina Venditore</h2>
           <c:choose>            
                 <c:when test="${IsVendor == null || IsVendor==false}">
