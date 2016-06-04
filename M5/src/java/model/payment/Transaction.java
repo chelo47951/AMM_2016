@@ -243,7 +243,7 @@ public class Transaction
              
              int numOrRows = stmt.executeUpdate();
             
-          disconnect(); 
+         // disconnect(); 
           
           if(numOrRows != 1)
               return false;

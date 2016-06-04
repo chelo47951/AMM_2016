@@ -109,6 +109,7 @@ public class Constant
      
        
        public final static String TRANSACTION_COMMITED_MESSAGE_TEXT = "La transazione si è conclusa con successo.";
+       public final static String TOTAL_CHECKOUT_COMMITTED_TEXT = "Effettuato il checkout di tutti gli oggetti richiesti.";
        public final static String TRANSACTION_ROLLEDBACK_MESSAGE_TEXT = "La transazione è stata annullata per il seguente motivo: ";
        public final static String TRANSACTION_ROLLEDBACK_REASON_CUSTOMER_TEXT = "Disponibilità insufficiente per completare l'acquisto";
        public final static String TRANSACTION_ROLLEDBACK_REASON_VENDOR_TEXT = "Impossibile completare l'accredito sul conto del venditore";

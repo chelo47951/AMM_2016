@@ -12,6 +12,7 @@ import Util.MenuLi;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -101,9 +102,23 @@ public class Carrello extends HttpServlet {
                    
                    
                      Customer c = (Customer) session.getAttribute(CUSTOMER);
-                      List<ObjectSale> items =  new ArrayList<ObjectSale>( c.getCart().getItems());
+                     
+                       ShoppingCart shopper = (ShoppingCart) session.getAttribute(SHOPPER);
+                   
+                        ArrayList<ObjectSale> cartItems = new ArrayList<ObjectSale>(shopper.getItems());
+                        Collections.copy(cartItems,shopper.getItems());
+                        
                       
-                     request.setAttribute("cartItems", items);
+                            double totalAmount = 0;
+                            for(ObjectSale o: cartItems )
+                            {
+                               totalAmount += o.getPrice();
+                            }
+                     
+                    // List<ObjectSale> items =  new ArrayList<ObjectSale>( c.getCart().getItems());
+                      
+                     request.setAttribute("cartItems", cartItems);
+                     request.setAttribute("totalAmount", totalAmount);
                       
                      List<MenuLi> menuItems = mb.getMenuByPage(CART_PAGE);        
                     request.setAttribute(MENU_ITEMS, menuItems);

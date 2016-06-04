@@ -95,8 +95,7 @@ public class Filter extends HttpServlet {
              
              
               // Genero il json con una jsp
-                request.getRequestDispatcher(LIST_JSON_PAGE).
-                        forward(request, response);
+                request.getRequestDispatcher(LIST_JSON_PAGE).forward(request, response);
 
         
              }

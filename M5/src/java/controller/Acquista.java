@@ -35,6 +35,8 @@ import Util.MenuBuilder;
 import Util.MenuLi;
 import Util.Util;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import model.payment.Account;
 import model.payment.PaymentSystem;
@@ -215,7 +217,10 @@ public class Acquista extends HttpServlet {
                     else if( request.getParameter("TotCheckout") != null)
                    {
                         ShoppingCart shopper = (ShoppingCart) session.getAttribute(SHOPPER);
-                        Set<ObjectSale> cartItems = shopper.getItems();
+                   
+                        ArrayList<ObjectSale> cartItems = new ArrayList<ObjectSale>(shopper.getItems());
+                        Collections.copy(cartItems,shopper.getItems());
+                        
                         if(cartItems != null && cartItems.size() > 0)
                         {
                             double totalAmount = 0;
@@ -237,6 +242,7 @@ public class Acquista extends HttpServlet {
                                  request.setAttribute(TRANSACTION_ROLLEDBACK_MESSAGE, TOTAL_CHECKOUT_ROLLEDBACK_REASON_CUSTOMER_TEXT);
                                  
                                  request.setAttribute("cartItems", shopper.getItems());
+                                 request.setAttribute("totalAmount", totalAmount);
                       
                                  List<MenuLi> menuItems = mb.getMenuByPage(CART_PAGE);        
                                  request.setAttribute(MENU_ITEMS, menuItems);
@@ -249,6 +255,9 @@ public class Acquista extends HttpServlet {
                                  
                                  // Procediamo all'acquisto di tutti i pezzi
                                  // Ogni pezzo una transazione
+                                 totalAmount = 0;
+                                 int numBought = 0;
+                                 double previousBalance =  c.getAccount().getBalance();
                                  
                                for(ObjectSale obj: cartItems )
                                {
@@ -268,16 +277,13 @@ public class Acquista extends HttpServlet {
 
                                      if(c != null && v != null && obj != null)
                                      {
-                                         double previousBalance =  c.getAccount().getBalance();
+                                       
                                          Transaction t = PaymentSystem.buy(obj, c,appMode);
                                          if(t.isIsSuccess())
                                          {
-                                             request.setAttribute(TRANSACTION_COMMITED_MESSAGE, t.getMessage());
-                                             request.setAttribute(OBJECT_ID,ObjectId);
-                                             request.setAttribute(PREVIOUS_BALANCE,previousBalance);
-                                             request.setAttribute(CURRENT_PURCHASE,totalAmount);
-                                             request.setAttribute(CURRENT_BALANCE ,c.getAccount().getBalance() );
                                             
+                                             totalAmount += obj.getPrice();
+                                             numBought++;
                                              shopper.removeFromCart(obj);
 
 
@@ -285,7 +291,9 @@ public class Acquista extends HttpServlet {
                                          else
                                          {
                                              request.setAttribute(TRANSACTION_ROLLEDBACK_MESSAGE, t.getMessage());
-
+                                             //Todo: una macrotransazione che prevede di ripristinare il carrello
+                                             // allo stato precedente al checkout totale tipo:
+                                             // rollbackTotalCheckout()
                                          }
 
                                          
@@ -302,13 +310,36 @@ public class Acquista extends HttpServlet {
                                     
                                 }
                                
-                                List<MenuLi> menuItems = mb.getMenuByPage(BUY_PAGE);        
+                               
+                                             request.setAttribute(TRANSACTION_COMMITED_MESSAGE,TOTAL_CHECKOUT_COMMITTED_TEXT);
+                                         
+                                             request.setAttribute(PREVIOUS_BALANCE,previousBalance);
+                                             request.setAttribute(CURRENT_PURCHASE,totalAmount);
+                                             request.setAttribute(CURRENT_BALANCE ,c.getAccount().getBalance() );
+                               
+                                             List<MenuLi> menuItems = mb.getMenuByPage(BUY_PAGE);        
                                           request.setAttribute(MENU_ITEMS, menuItems);
 
                                           request.getRequestDispatcher(BUY_PAGE).forward(request, response); 
                                  
                              }
                      
+                        }
+                        else
+                        {
+                            // Nessun oggetto per il checkout totale: torna alla pagina cliente
+                            
+                            
+                            ObjectSaleFactory factory = ObjectSaleFactoryBuilder.getFactory(appMode);       
+                            List<ObjectSale> items = factory.getSellingObjectList(); 
+                            
+                            request.setAttribute(SELLING_ITEMS, items);
+                            
+                             List<MenuLi> menuItems = mb.getMenuByPage(CUSTOMER_PAGE);        
+                            request.setAttribute(MENU_ITEMS, menuItems);
+                            
+                            request.getRequestDispatcher(CUSTOMER_PAGE).forward(request, response);
+                        
                         }
                        
                    }

@@ -489,7 +489,7 @@ public class DbObjectSaleFactory extends ObjectSaleFactory
          {
              
              String sql = "select * from OBJECT_SALES "+
-                          " where OBJECT_NAME like ? or DESCRIPTION like ?   ";
+                          " where (OBJECT_NAME like ? or DESCRIPTION like ?) and (NUM_OF_ITEMS > 0)";
                     
              filterString = "%" +filterString + "%";
              

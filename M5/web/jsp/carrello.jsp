@@ -79,7 +79,11 @@
                         
                         
                   </c:forEach>
-
+                            <tr>
+                                <td><strong>Totale Carrello</strong></td>
+                            
+                                 <td>${totalAmount}€</td>                            
+                            </tr>
                         
                      </table>
              

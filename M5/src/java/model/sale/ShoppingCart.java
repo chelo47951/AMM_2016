@@ -23,7 +23,7 @@ public class ShoppingCart
     
      private int ShoppingCartId;
      
-     private Set<ObjectSale> items;    
+     private List<ObjectSale> items;    
      private int numOfItems;
      
      
@@ -33,7 +33,7 @@ public class ShoppingCart
           this.ShoppingCartId = Math.abs(  rn.nextInt() % Constant.MAX_ID  ); 
          
          numOfItems = 0;
-         items =  new HashSet<>();
+         items =  new ArrayList<>();
      }
      
      public void addToCart(ObjectSale item)
@@ -64,7 +64,7 @@ public class ShoppingCart
     /**
      * @return the items
      */
-    public Set<ObjectSale> getItems() {
+    public List<ObjectSale> getItems() {
         return items;
     }
 
